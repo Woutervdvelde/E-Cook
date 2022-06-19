@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext('2d');
 
-CanvasRenderingContext2D.prototype.drawRoundRect = function(x, y, x2, y2, radius = 5, fill = false, stroke = true) {
+CanvasRenderingContext2D.prototype.drawRoundRect = function(x, y, x2, y2, fill = false, stroke = true, radius = 5) {
     let cords = { x: x, y: y, x2: x2 - x, y2: y2 - y };
     if (x2 > x && y2 < y)
         cords = { x: x, y: y2, x2: x2 - x, y2: y - y2 };
@@ -21,10 +21,16 @@ CanvasRenderingContext2D.prototype.drawRoundRect = function(x, y, x2, y2, radius
     this.lineTo(cords.x, cords.y + radius);
     this.quadraticCurveTo(cords.x, cords.y, cords.x + radius, cords.y);
     this.closePath();
-    if (fill)
+    if (fill) {
+        if (typeof fill != 'boolean')
+            this.fillStyle = fill;
         this.fill();
-    if (stroke)
+    }
+    if (stroke) {
+        if (typeof stroke != 'boolean')
+            this.strokeStyle = stroke;
         this.stroke();
+    }
 };
 
 let backgroundColor = 'white';
@@ -33,7 +39,7 @@ let background = new window.Image();
 let mouseStart = { x: 0, y: 0 };
 
 const startDraw = (x, y) => { mouseStart = { x: x, y: y }; drawing = true; }
-const stopDraw = () => { drawing = false; }
+const stopDraw = () => { drawing = false; saveDrawing();}
 
 const drawSelection = (x, y) => {
     if (!background.src) {
@@ -42,15 +48,12 @@ const drawSelection = (x, y) => {
     } else
         ctx.drawImage(background, 0, 0);
 
-    // x = x - mouseStart.x;
-    // y = y - mouseStart.y;
-    ctx.drawRoundRect(mouseStart.x, mouseStart.y, x, y)
+    ctx.drawRoundRect(mouseStart.x, mouseStart.y, x, y, 'rgba(255,0,0,.5)', 'rgb(255,0,0)');
 }
 
 const saveDrawing = () => {
     background.setAttribute('src', canvas.toDataURL());
 }
-
 
 canvas.onmousedown = (e) => {
     startDraw(e.x - canvas.offsetLeft, e.y - canvas.offsetTop);
@@ -61,8 +64,6 @@ canvas.onmousemove = (e) => {
     drawSelection(e.x - canvas.offsetLeft, e.y - canvas.offsetTop);
 }
 
-canvas.onmouseup = (e) => {
-    stopDraw();
-    saveDrawing();
-}
+canvas.onmouseleave = (e) => stopDraw();
+canvas.onmouseup = (e) => stopDraw();
 
