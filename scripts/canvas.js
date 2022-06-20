@@ -1,4 +1,5 @@
 const canvas = document.getElementById("canvas");
+const typeButtons = document.getElementsByClassName("type-button");
 const ctx = canvas.getContext('2d');
 
 let backgroundColor = 'white';
@@ -67,4 +68,16 @@ const redo = () => {
     else
         background = new window.Image();
     drawBackground();
+}
+
+const typeButtonClick = (e) => {
+    for (const button of typeButtons) {
+        button.classList.remove('active');
+    }
+    
+    e.target.classList.add('active');
+}
+
+for (const button of typeButtons) {
+    button.onclick = typeButtonClick;
 }
