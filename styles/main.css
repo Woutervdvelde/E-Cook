@@ -1,0 +1,65 @@
+.material-symbols-rounded {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+:root {
+    --color-dark-100: hsl(0, 0%, 80%);
+    --color-dark-200: hsl(0, 0%, 64%);
+    --color-dark-300: hsl(0, 0%, 32%);
+    --color-dark-400: hsl(0, 0%, 16%);
+    --color-light: hsl(30, 53%, 94%);
+
+    --color-red-100: hsl(6, 99%, 93%);
+    --color-red-200: hsl(6, 99%, 90%);
+    --color-red-300: hsl(6, 99%, 83%);
+    --color-red-400: hsl(6, 99%, 66%);
+
+    --color-green-100: hsl(152, 77%, 97%);
+    --color-green-200: hsl(152, 77%, 95%);
+    --color-green-400: hsl(152, 77%, 85%);
+    --color-green-600: hsl(152, 29%, 68%);
+
+    --color-yellow-100: hsl(53, 85%, 93%);
+    --color-yellow-200: hsl(53, 85%, 91%);
+    --color-yellow-300: hsl(53, 85%, 85%);
+    --color-yellow-400: hsl(53, 85%, 69%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-light);
+    font-family: 'Rubik', sans-serif;
+}
+
+canvas {
+    border: 1px solid var(--color-dark);
+}
+
+.canvas-container {
+    display: flex;
+    justify-content: center;
+}
+
+.bounding-type-container {
+    display: flex;
+    justify-content: center;
+    margin: 1.5em;
+}
+
+.canvas-control-container {
+    display: flex;
+    justify-content: center;
+}

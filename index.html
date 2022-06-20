@@ -12,27 +12,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/pushbutton.css">
     <title>CookBook</title>
 </head>
 
 <body>
     <!-- <img id="recipe" src="recipes/3.jpg"/> -->
     <div class="bounding-type-container">
-        <button class="type-button">Title</button>
-        <button class="type-button">Title</button>
-        <button class="type-button">Title</button>
+        <button class="push-button type-button red">Title</button>
+        <button class="push-button type-button green">Title</button>
+        <button class="push-button type-button yellow">Title</button>
     </div>
     <div class="canvas-container">
         <canvas width="500" height="500" id="canvas"></canvas>
     </div>
     <div class="canvas-control-container">
-        <button onclick="undo()">
+        <button onclick="undo()" class="push-button black">
             <span class="material-symbols-rounded">
                 undo
             </span>
         </button>
-        <button onclick="redo()">
+        <button onclick="redo()" class="push-button black">
             <span class="material-symbols-rounded">
                 redo
             </span>
