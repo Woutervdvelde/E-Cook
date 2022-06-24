@@ -7,11 +7,13 @@
 }
 
 :root {
+    --color-light-100: hsl(30, 53%, 100%);
+    --color-light-400: hsl(30, 53%, 94%);
+    
     --color-dark-100: hsl(0, 0%, 80%);
     --color-dark-200: hsl(0, 0%, 64%);
     --color-dark-300: hsl(0, 0%, 32%);
     --color-dark-400: hsl(0, 0%, 16%);
-    --color-light: hsl(30, 53%, 94%);
 
     --color-red-100: hsl(6, 99%, 93%);
     --color-red-200: hsl(6, 99%, 90%);
@@ -40,23 +42,20 @@
 }
 
 body {
-    background-color: var(--color-light);
+    background-color: var(--color-light-400);
     font-family: 'Rubik', sans-serif;
 }
 
-canvas {
-    border: 1px solid var(--color-dark);
+#canvas {
+    margin: 1em 0;
+    background-color: var(--color-light-100);
+    border: 3px solid var(--color-dark-400);
+    border-radius: 5px;
 }
 
 .canvas-container {
     display: flex;
     justify-content: center;
-}
-
-.bounding-type-container {
-    display: flex;
-    justify-content: center;
-    margin: 1.5em;
 }
 
 .canvas-control-container {

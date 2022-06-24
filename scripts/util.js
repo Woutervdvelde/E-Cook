@@ -51,3 +51,14 @@ const parseCords = (x, y, x2, y2) => {
         cords = { x: x2, y: y2, x2: x - x2, y2: y - y2 };
     return cords;
 }
+
+/**
+ * Converts an HSL color value to HSLA for transparency.
+ * @param {string} hsl - HSL value
+ * @param {Number} alpha - alpha that needs to be applied
+ * @return {string} - The HSLA representation
+ */
+ function HSLtoHSLA(hsl, alpha) {
+    let [h, s, l] = hsl.match(/\d+/g);
+    return `HSLA(${h}, ${s}%, ${l}%, ${alpha.toString()})`;
+}

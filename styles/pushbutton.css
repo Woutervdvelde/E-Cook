@@ -1,3 +1,10 @@
+.bounding-type-container {
+    display: flex;
+    justify-content: center;
+    margin: .5em 1.5em;
+}
+
+
 .push-button {
     position: relative;
     display: inline-block;
@@ -57,22 +64,21 @@
     border-radius: inherit;
     transform: translate3d(0, 0.75em, -1em);
     transition: transform 150ms cubic-bezier(0, 0, 0.6, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
-    box-shadow: 0 0.5em 0 0 red;
 }
 
 .push-button.red::before {
     background: var(--color-red-300);
-    box-shadow: 0 0 0 2px var(--color-red-400), inherit;
+    box-shadow: 0 0 0 2px var(--color-red-400), 0 0.5em 0 0 var(--color-dark-100);
 }
 
 .push-button.green::before {
     background: var(--color-green-400);
-    box-shadow: 0 0 0 2px var(--color-green-600), 0 0.5em 0 0 var(--color-green-100);
+    box-shadow: 0 0 0 2px var(--color-green-600), 0 0.5em 0 0 var(--color-dark-100);
 }
 
 .push-button.yellow::before {
     background: var(--color-yellow-300);
-    box-shadow: 0 0 0 2px var(--color-yellow-400), 0 0.5em 0 0 var(--color-yellow-100);
+    box-shadow: 0 0 0 2px var(--color-yellow-400), 0 0.5em 0 0 var(--color-dark-100);
 }
 
 .push-button.black::before {
@@ -107,15 +113,15 @@
 }
 
 .push-button:hover.red::before {
-    box-shadow: 0 0 0 2px var(--color-red-400), 0 0.25em 0 0 var(--color-red-100);
+    box-shadow: 0 0 0 2px var(--color-red-400), 0 0.25em 0 0 var(--color-dark-100);
 }
 
 .push-button:hover.green::before {
-    box-shadow: 0 0 0 2px var(--color-green-600), 0 0.25em 0 0 var(--color-green-100);
+    box-shadow: 0 0 0 2px var(--color-green-600), 0 0.25em 0 0 var(--color-dark-100);
 }
 
 .push-button:hover.yellow::before {
-    box-shadow: 0 0 0 2px var(--color-yellow-400), 0 0.25em 0 0 var(--color-yellow-100);
+    box-shadow: 0 0 0 2px var(--color-yellow-400), 0 0.25em 0 0 var(--color-dark-100);
 }
 
 .push-button:hover.black::before {

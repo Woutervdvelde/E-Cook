@@ -2,11 +2,40 @@ const canvas = document.getElementById("canvas");
 const typeButtons = document.getElementsByClassName("type-button");
 const ctx = canvas.getContext('2d');
 
+const boundingBoxFillAlpha = .25;
+const types = {
+    title: {
+        name: 'Title',
+        colors: {
+            name: 'red',
+            outline: getComputedStyle(document.body).getPropertyValue('--color-red-400'),
+            fill: HSLtoHSLA(getComputedStyle(document.body).getPropertyValue('--color-red-200'), boundingBoxFillAlpha)
+        }
+    },
+    ingredients: {
+        name: 'Ingredients',
+        colors: {
+            name: 'green',
+            outline: getComputedStyle(document.body).getPropertyValue('--color-green-600'),
+            fill: HSLtoHSLA(getComputedStyle(document.body).getPropertyValue('--color-green-200'), boundingBoxFillAlpha)
+        }
+    },
+    steps: {
+        name: 'Steps',
+        colors: {
+            name: 'yellow',
+            outline: getComputedStyle(document.body).getPropertyValue('--color-yellow-400'),
+            fill: HSLtoHSLA(getComputedStyle(document.body).getPropertyValue('--color-yellow-200'), boundingBoxFillAlpha)
+        }
+    }
+}
+
 let backgroundColor = 'white';
 let drawing = false;
 let background = new window.Image();
 let mouseStart = { x: 0, y: 0 };
 let mouseEnd = { x: 0, y: 0 };
+let currentType = types.title;
 
 const startDraw = (x, y) => {
     mouseStart = { x: x, y: y };
@@ -31,7 +60,8 @@ const drawBackground = () => {
 
 const drawSelection = (x, y) => {
     drawBackground();
-    ctx.drawRoundRect(mouseStart.x, mouseStart.y, x, y, 'rgba(255,0,0,.2)', 'rgb(255,0,0)');
+    console.log(currentType.colors.fill);
+    ctx.drawRoundRect(mouseStart.x, mouseStart.y, x, y, currentType.colors.fill, currentType.colors.outline);
 }
 
 const saveDrawing = () => {
@@ -71,10 +101,13 @@ const redo = () => {
 }
 
 const typeButtonClick = (e) => {
+    const type = types[e.target.dataset.type];
+    if (!type) return;
+    currentType = type;
+
     for (const button of typeButtons) {
         button.classList.remove('active');
     }
-    
     e.target.classList.add('active');
 }
 
