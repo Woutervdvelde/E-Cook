@@ -31,6 +31,11 @@
     border-color: var(--color-red-400);
 }
 
+.push-button.blue {
+    background: var(--color-blue-100);
+    border-color: var(--color-blue-400);
+}
+
 .push-button.green {
     background: var(--color-green-100);
     border-color: var(--color-green-600);
@@ -71,6 +76,12 @@
     box-shadow: 0 0 0 2px var(--color-red-400), 0 0.5em 0 0 var(--color-dark-100);
 }
 
+.push-button.blue::before {
+    background: var(--color-blue-300);
+    box-shadow: 0 0 0 2px var(--color-blue-400), 0 0.5em 0 0 var(--color-dark-100);
+}
+
+
 .push-button.green::before {
     background: var(--color-green-400);
     box-shadow: 0 0 0 2px var(--color-green-600), 0 0.5em 0 0 var(--color-dark-100);
@@ -95,6 +106,10 @@
     background: var(--color-red-200);
 }
 
+.push-button.blue:hover {
+    background: var(--color-blue-200);
+}
+
 .push-button.green:hover {
     background: var(--color-green-200);
 }
@@ -114,6 +129,10 @@
 
 .push-button:hover.red::before {
     box-shadow: 0 0 0 2px var(--color-red-400), 0 0.25em 0 0 var(--color-dark-100);
+}
+
+.push-button:hover.blue::before {
+    box-shadow: 0 0 0 2px var(--color-blue-400), 0 0.25em 0 0 var(--color-dark-100);
 }
 
 .push-button:hover.green::before {
@@ -137,6 +156,11 @@
     background: var(--color-red-200);
 }
 
+.push-button.active.blue, .push-button.blue:active{
+    background: var(--color-blue-200);
+}
+
+
 .push-button.active.green, .push-button.green:active{
     background: var(--color-green-200);
 }
@@ -156,6 +180,10 @@
 
 .push-button.active.red::before, .push-button:active.red::before {
     box-shadow: 0 0 0 2px var(--color-red-400), 0 0 var(--color-red-100);
+}
+
+.push-button.active.blue::before, .push-button:active.blue::before {
+    box-shadow: 0 0 0 2px var(--color-blue-400), 0 0 var(--color-blue-100);
 }
 
 .push-button.active.green::before, .push-button:active.green::before {

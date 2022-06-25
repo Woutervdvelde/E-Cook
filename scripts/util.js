@@ -59,6 +59,7 @@ const parseCords = (x, y, x2, y2) => {
  * @return {string} - The HSLA representation
  */
  function HSLtoHSLA(hsl, alpha) {
+    if (!hsl) return;
     let [h, s, l] = hsl.match(/\d+/g);
     return `HSLA(${h}, ${s}%, ${l}%, ${alpha.toString()})`;
 }

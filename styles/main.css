@@ -20,6 +20,11 @@
     --color-red-300: hsl(6, 99%, 83%);
     --color-red-400: hsl(6, 99%, 66%);
 
+    --color-blue-100: hsl(213, 43%, 88%);
+    --color-blue-200: hsl(213, 43%, 80%);
+    --color-blue-300: hsl(213, 43%, 79%);
+    --color-blue-400: hsl(213, 43%, 59%);
+
     --color-green-100: hsl(152, 77%, 97%);
     --color-green-200: hsl(152, 77%, 95%);
     --color-green-400: hsl(152, 77%, 85%);

@@ -1,8 +1,9 @@
 const canvas = document.getElementById("canvas");
 const typeButtons = document.getElementsByClassName("type-button");
 const ctx = canvas.getContext('2d');
+const revertible = new Revertible();
 
-const boundingBoxFillAlpha = .25;
+const boundingBoxFillAlpha = .5;
 const types = {
     title: {
         name: 'Title',
@@ -10,6 +11,14 @@ const types = {
             name: 'red',
             outline: getComputedStyle(document.body).getPropertyValue('--color-red-400'),
             fill: HSLtoHSLA(getComputedStyle(document.body).getPropertyValue('--color-red-200'), boundingBoxFillAlpha)
+        }
+    },
+    description: {
+        name: 'Description',
+        colors: {
+            name: 'blue',
+            outline: getComputedStyle(document.body).getPropertyValue('--color-blue-400'),
+            fill: HSLtoHSLA(getComputedStyle(document.body).getPropertyValue('--color-blue-200'), boundingBoxFillAlpha)
         }
     },
     ingredients: {
@@ -47,7 +56,7 @@ const stopDraw = () => {
     saveDrawing();
 
     const bounds = parseCords(mouseStart.x, mouseStart.y, mouseEnd.x, mouseEnd.y);
-    revertible.addToHistory(bounds, null, background);
+    revertible.addToHistory(bounds, currentType, background);
 }
 
 const drawBackground = () => {
@@ -60,7 +69,6 @@ const drawBackground = () => {
 
 const drawSelection = (x, y) => {
     drawBackground();
-    console.log(currentType.colors.fill);
     ctx.drawRoundRect(mouseStart.x, mouseStart.y, x, y, currentType.colors.fill, currentType.colors.outline);
 }
 
