@@ -51,5 +51,3 @@ class Revertible {
         return this.history[this.history.length - 1];
     }
 }
-
-const revertible = new Revertible();

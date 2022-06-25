@@ -1,0 +1,199 @@
+.bounding-type-container {
+    display: flex;
+    justify-content: center;
+    margin: .5em 1.5em;
+}
+
+
+.push-button {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 .25em; 
+    padding: 1.2em 2em;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-dark);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 0.75em;
+    outline: none;
+    transform-style: preserve-3d;
+    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background-color 150ms cubic-bezier(0, 0, 0.58, 1);
+    cursor: pointer;
+    user-select: none;
+}
+
+.push-button.red {
+    background: var(--color-red-100);
+    border-color: var(--color-red-400);
+}
+
+.push-button.blue {
+    background: var(--color-blue-100);
+    border-color: var(--color-blue-400);
+}
+
+.push-button.green {
+    background: var(--color-green-100);
+    border-color: var(--color-green-600);
+}
+
+.push-button.yellow {
+    background: var(--color-yellow-100);
+    border-color: var(--color-yellow-400);
+}
+
+.push-button.yellow {
+    background: var(--color-yellow-100);
+    border-color: var(--color-yellow-400);
+}
+
+.push-button.black {
+    background: var(--color-dark-100);
+    border-color: var(--color-dark-400);
+}
+
+
+.push-button::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    transform: translate3d(0, 0.75em, -1em);
+    transition: transform 150ms cubic-bezier(0, 0, 0.6, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+.push-button.red::before {
+    background: var(--color-red-300);
+    box-shadow: 0 0 0 2px var(--color-red-400), 0 0.5em 0 0 var(--color-dark-100);
+}
+
+.push-button.blue::before {
+    background: var(--color-blue-300);
+    box-shadow: 0 0 0 2px var(--color-blue-400), 0 0.5em 0 0 var(--color-dark-100);
+}
+
+
+.push-button.green::before {
+    background: var(--color-green-400);
+    box-shadow: 0 0 0 2px var(--color-green-600), 0 0.5em 0 0 var(--color-dark-100);
+}
+
+.push-button.yellow::before {
+    background: var(--color-yellow-300);
+    box-shadow: 0 0 0 2px var(--color-yellow-400), 0 0.5em 0 0 var(--color-dark-100);
+}
+
+.push-button.black::before {
+    background: var(--color-dark-300);
+    box-shadow: 0 0 0 2px var(--color-dark-400), 0 0.5em 0 0 var(--color-dark-100);
+}
+
+
+.push-button:hover {
+    transform: translate(0, 0.25em);
+}
+
+.push-button.red:hover {
+    background: var(--color-red-200);
+}
+
+.push-button.blue:hover {
+    background: var(--color-blue-200);
+}
+
+.push-button.green:hover {
+    background: var(--color-green-200);
+}
+
+.push-button.yellow:hover {
+    background: var(--color-yellow-200);
+}
+
+.push-button.black:hover {
+    background: var(--color-dark-200);
+}
+
+
+.push-button:hover::before {
+    transform: translate3d(0, 0.5em, -1em);
+}
+
+.push-button:hover.red::before {
+    box-shadow: 0 0 0 2px var(--color-red-400), 0 0.25em 0 0 var(--color-dark-100);
+}
+
+.push-button:hover.blue::before {
+    box-shadow: 0 0 0 2px var(--color-blue-400), 0 0.25em 0 0 var(--color-dark-100);
+}
+
+.push-button:hover.green::before {
+    box-shadow: 0 0 0 2px var(--color-green-600), 0 0.25em 0 0 var(--color-dark-100);
+}
+
+.push-button:hover.yellow::before {
+    box-shadow: 0 0 0 2px var(--color-yellow-400), 0 0.25em 0 0 var(--color-dark-100);
+}
+
+.push-button:hover.black::before {
+    box-shadow: 0 0 0 2px var(--color-dark-400), 0 0.25em 0 0 var(--color-dark-100);
+}
+
+
+.push-button.active, .push-button:active{
+    transform: translate(0em, 0.75em);
+}
+
+.push-button.active.red, .push-button.red:active{
+    background: var(--color-red-200);
+}
+
+.push-button.active.blue, .push-button.blue:active{
+    background: var(--color-blue-200);
+}
+
+
+.push-button.active.green, .push-button.green:active{
+    background: var(--color-green-200);
+}
+
+.push-button.active.yellow, .push-button.yellow:active{
+    background: var(--color-yellow-200);
+}
+
+.push-button.active.black, .push-button.black:active{
+    background: var(--color-dark-200);
+}
+
+
+.push-button.active::before, .push-button:active::before {
+    transform: translate3d(0, 0, -1em);
+}
+
+.push-button.active.red::before, .push-button:active.red::before {
+    box-shadow: 0 0 0 2px var(--color-red-400), 0 0 var(--color-red-100);
+}
+
+.push-button.active.blue::before, .push-button:active.blue::before {
+    box-shadow: 0 0 0 2px var(--color-blue-400), 0 0 var(--color-blue-100);
+}
+
+.push-button.active.green::before, .push-button:active.green::before {
+    box-shadow: 0 0 0 2px var(--color-green-600), 0 0 var(--color-green-100);
+}
+
+.push-button.active.yellow::before, .push-button:active.yellow::before {
+    box-shadow: 0 0 0 2px var(--color-yellow-400), 0 0 var(--color-yellow-100);
+}
+
+.push-button.active.black::before, .push-button:active.black::before {
+    box-shadow: 0 0 0 2px var(--color-dark-400), 0 0 var(--color-dark-100);
+}
