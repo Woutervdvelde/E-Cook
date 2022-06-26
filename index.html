@@ -28,10 +28,6 @@
     </div>
     <div class="canvas-container">
         <canvas width="500" height="500" id="canvas"></canvas>
-        <div class="canvas-uploader">
-            <button id="recipe_upload_button" class="push-button black">Upload image</button>
-            <input id="recipe_upload" type="file">
-        </div>
     </div>
     <div class="canvas-control-container">
         <button onclick="undo()" class="push-button black">
@@ -39,12 +35,14 @@
                 undo
             </span>
         </button>
+        <button id="recipe_upload_button" class="push-button black">Upload image</button>
         <button onclick="redo()" class="push-button black">
             <span class="material-symbols-rounded">
                 redo
             </span>
         </button>
     </div>
+    <input type="file" id="recipe_upload">
     <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
     <script src="scripts/util.js"></script>
     <script src="scripts/canvasActions.js"></script>

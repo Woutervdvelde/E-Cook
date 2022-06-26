@@ -7,7 +7,6 @@
 
 .canvas-container {
     display: flex;
-    position: relative;
     justify-content: center;
 }
 

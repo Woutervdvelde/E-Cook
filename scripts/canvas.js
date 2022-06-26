@@ -1,6 +1,5 @@
 const canvas = document.getElementById("canvas");
 const typeButtons = document.getElementsByClassName("type-button");
-const uploadContainer = document.querySelector(".canvas-uploader");
 const uploadInput = document.getElementById("recipe_upload");
 const uploadButton = document.getElementById("recipe_upload_button");
 const ctx = canvas.getContext('2d');
@@ -127,15 +126,7 @@ for (const button of typeButtons) {
     button.onclick = typeButtonClick;
 }
 
-const hideUploadContainer = () => {
-    uploadContainer.style.display = 'none';
-    uploadContainer.parentElement.style.position = 'static';
-}
-
-uploadButton.onclick = (e) => {
-    uploadInput.click();
-}
-
+uploadButton.onclick = (e) => uploadInput.click();
 uploadInput.oninput = (e) => {
     const url = URL.createObjectURL(e.target.files[0]);
 
@@ -144,5 +135,4 @@ uploadInput.oninput = (e) => {
         revertible.addToHistory(null, 'background', background);
     }
     background.src = url;
-    hideUploadContainer();
 }
