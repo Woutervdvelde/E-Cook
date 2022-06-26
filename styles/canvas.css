@@ -36,4 +36,8 @@
     align-items: center;
 }
 
+#recipe_upload {
+    display: none;
+}
+
 

@@ -17,6 +17,7 @@
     transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background-color 150ms cubic-bezier(0, 0, 0.58, 1);
     cursor: pointer;
     user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 .push-button.red {

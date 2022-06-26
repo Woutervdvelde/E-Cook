@@ -1,5 +1,8 @@
 const canvas = document.getElementById("canvas");
 const typeButtons = document.getElementsByClassName("type-button");
+const uploadContainer = document.querySelector(".canvas-uploader");
+const uploadInput = document.getElementById("recipe_upload");
+const uploadButton = document.getElementById("recipe_upload_button");
 const ctx = canvas.getContext('2d');
 const revertible = new Revertible();
 
@@ -41,7 +44,7 @@ const types = {
 
 let backgroundColor = 'white';
 let drawing = false;
-let background = new window.Image();
+let background = new Image();
 let mouseStart = { x: 0, y: 0 };
 let mouseEnd = { x: 0, y: 0 };
 let currentType = types.title;
@@ -64,7 +67,7 @@ const drawBackground = () => {
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else
-        ctx.drawImage(background, 0, 0);
+        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 }
 
 const drawSelection = (x, y) => {
@@ -82,8 +85,9 @@ canvas.onmousedown = (e) => {
 
 canvas.onmousemove = (e) => {
     if (!drawing) return;
-    mouseEnd.x = e.x - canvas.offsetLeft;
-    mouseEnd.y = e.y - canvas.offsetTop;
+    const position = canvas.getBoundingClientRect();
+    mouseEnd.x = e.x - position.left;
+    mouseEnd.y = e.y - position.top;
     drawSelection(mouseEnd.x, mouseEnd.y);
 }
 
@@ -95,7 +99,7 @@ const undo = () => {
     if (item)
         background.src = item.image.src;
     else
-        background = new window.Image();
+        background = new Image();
     drawBackground();
 }
 
@@ -104,7 +108,7 @@ const redo = () => {
     if (item)
         background.src = item.image.src;
     else
-        background = new window.Image();
+        background = new Image();
     drawBackground();
 }
 
@@ -121,4 +125,24 @@ const typeButtonClick = (e) => {
 
 for (const button of typeButtons) {
     button.onclick = typeButtonClick;
+}
+
+const hideUploadContainer = () => {
+    uploadContainer.style.display = 'none';
+    uploadContainer.parentElement.style.position = 'static';
+}
+
+uploadButton.onclick = (e) => {
+    uploadInput.click();
+}
+
+uploadInput.oninput = (e) => {
+    const url = URL.createObjectURL(e.target.files[0]);
+
+    background.onload = () => {
+        drawBackground();
+        revertible.addToHistory(null, 'background', background);
+    }
+    background.src = url;
+    hideUploadContainer();
 }
