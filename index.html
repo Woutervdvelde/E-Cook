@@ -13,8 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/canvas.css">
     <link rel="stylesheet" href="styles/pushbutton.css">
-    <title>CookBook</title>
+    <title>e-Cook</title>
 </head>
 
 <body>
@@ -34,12 +35,14 @@
                 undo
             </span>
         </button>
+        <button id="recipe_upload_button" class="push-button black">Upload image</button>
         <button onclick="redo()" class="push-button black">
             <span class="material-symbols-rounded">
                 redo
             </span>
         </button>
     </div>
+    <input type="file" id="recipe_upload">
     <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
     <script src="scripts/util.js"></script>
     <script src="scripts/canvasActions.js"></script>

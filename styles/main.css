@@ -50,20 +50,3 @@ body {
     background-color: var(--color-light-400);
     font-family: 'Rubik', sans-serif;
 }
-
-#canvas {
-    margin: 1em 0;
-    background-color: var(--color-light-100);
-    border: 3px solid var(--color-dark-400);
-    border-radius: 5px;
-}
-
-.canvas-container {
-    display: flex;
-    justify-content: center;
-}
-
-.canvas-control-container {
-    display: flex;
-    justify-content: center;
-}
