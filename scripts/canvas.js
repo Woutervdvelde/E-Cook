@@ -48,10 +48,7 @@ let mouseStart = { x: 0, y: 0 };
 let mouseEnd = { x: 0, y: 0 };
 let currentType = types.title;
 
-const startDraw = (x, y) => {
-    mouseStart = { x: x, y: y };
-    drawing = true;
-}
+const startDraw = () => drawing = true;
 
 const stopDraw = async () => {
     drawing = false;
@@ -91,14 +88,17 @@ const getImageFromCanvas = () => {
 }
 
 canvas.onmousedown = (e) => {
-    startDraw(e.x - canvas.offsetLeft, e.y - canvas.offsetTop);
+    const position = canvas.getBoundingClientRect();
+    mouseStart.x = e.clientX - position.x;
+    mouseStart.y = e.clientY - position.y;
+    startDraw();
 }
 
 canvas.onmousemove = (e) => {
     if (!drawing) return;
     const position = canvas.getBoundingClientRect();
-    mouseEnd.x = e.x - position.left;
-    mouseEnd.y = e.y - position.top;
+    mouseEnd.x = e.clientX - position.x;
+    mouseEnd.y = e.clientY - position.y;
     drawSelection(mouseEnd.x, mouseEnd.y);
 }
 
