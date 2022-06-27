@@ -53,9 +53,9 @@ const startDraw = (x, y) => {
     drawing = true;
 }
 
-const stopDraw = () => {
+const stopDraw = async () => {
     drawing = false;
-    saveDrawing();
+    await saveDrawing();
 
     const bounds = parseCords(mouseStart.x, mouseStart.y, mouseEnd.x, mouseEnd.y);
     revertible.addToHistory(bounds, currentType, background);
@@ -75,7 +75,19 @@ const drawSelection = (x, y) => {
 }
 
 const saveDrawing = () => {
-    background.src = canvas.toDataURL();
+    return new Promise(async (resolve, reject) => {
+        const img = await getImageFromCanvas();
+        background.src = img.src;
+        resolve(true);
+    });
+}
+
+const getImageFromCanvas = () => {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.src = canvas.toDataURL();
+    });
 }
 
 canvas.onmousedown = (e) => {
@@ -129,10 +141,13 @@ for (const button of typeButtons) {
 uploadButton.onclick = (e) => uploadInput.click();
 uploadInput.oninput = (e) => {
     const url = URL.createObjectURL(e.target.files[0]);
-
-    background.onload = () => {
-        drawBackground();
+    const img = new Image();
+    img.onload = async () => {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        await saveDrawing();
         revertible.addToHistory(null, 'background', background);
     }
-    background.src = url;
+    img.src = url;
 }
