@@ -147,6 +147,7 @@ uploadInput.oninput = (e) => {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         await saveDrawing();
+        revertible.reset();
         revertible.addToHistory(null, 'background', background);
     }
     img.src = url;

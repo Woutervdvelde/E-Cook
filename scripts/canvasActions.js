@@ -24,6 +24,10 @@ class Revertible {
     future = [];
     constructor() { }
 
+    get lastHistoryItem() {
+        return this.history[this.history.length - 1];
+    }
+
     addToHistory(bounds, type, image) {
         const item = new HistoryItem(bounds, type, image);
         this.history.push(item);
@@ -37,7 +41,8 @@ class Revertible {
         const item = this.history.pop();
         if (item)
             this.future.push(item);
-        return this.history[this.history.length - 1];
+
+        return this.lastHistoryItem;
     }
 
     /**
@@ -46,8 +51,19 @@ class Revertible {
      */
     redo() {
         const item = this.future.pop();
+        if (item && item.type == "background")
+            this.history = [];
         if (item)
             this.history.push(item);
-        return this.history[this.history.length - 1];
+
+        return this.lastHistoryItem;
+    }
+
+    /**
+     * Resets the history and future. IMPORTANT, all bounding boxes will be lost!
+     */
+    reset() {
+        this.history = [];
+        this.future = [];
     }
 }
