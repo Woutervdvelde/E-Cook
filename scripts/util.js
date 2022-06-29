@@ -72,8 +72,13 @@ function HSLtoHSLA(hsl, alpha) {
 const timeout = async ms => new Promise(res => setTimeout(res, ms));
 
 /**
- * Enum class to easily create Enums
+ * Enum class to easily create Enums  
  * Source: https://www.30secondsofcode.org/articles/s/javascript-enum
+ * @example <caption>Example usage of Enum class</caption>
+ * //returns an enum containing MEOW and BORK
+ * const AnimalSounds = new Enum('MEOW', 'BORK');
+ * AnimalSounds.MEOW //0
+ * AnimalSounds.BORK //1
  */
 class Enum {
     constructor(...keys) {

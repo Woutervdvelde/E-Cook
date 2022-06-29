@@ -19,7 +19,6 @@ const ModalTemplateHTML = (title, body) => {
 class Modal {
     types = { YES_NO: '1', OKAY: '2' };
     element;
-    promiseResolve;
 
     constructor(title, description, type) {
         this.element = document.createElement('div');
