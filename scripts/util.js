@@ -58,8 +58,37 @@ const parseCords = (x, y, x2, y2) => {
  * @param {Number} alpha - alpha that needs to be applied
  * @return {string} - The HSLA representation
  */
- function HSLtoHSLA(hsl, alpha) {
+function HSLtoHSLA(hsl, alpha) {
     if (!hsl) return;
     let [h, s, l] = hsl.match(/\d+/g);
     return `HSLA(${h}, ${s}%, ${l}%, ${alpha.toString()})`;
+}
+
+/**
+ * Sets a timeout for a specific amount of time.
+ * @param {Number} ms - Amount of time the timeout should be (in milliseconds)
+ * @returns {Promise} - Resolves after specified amount of time
+ */
+const timeout = async ms => new Promise(res => setTimeout(res, ms));
+
+/**
+ * Enum class to easily create Enums  
+ * Source: https://www.30secondsofcode.org/articles/s/javascript-enum
+ * @example <caption>Example usage of Enum class</caption>
+ * //returns an enum containing MEOW and BORK
+ * const AnimalSounds = new Enum('MEOW', 'BORK');
+ * AnimalSounds.MEOW //0
+ * AnimalSounds.BORK //1
+ */
+class Enum {
+    constructor(...keys) {
+        keys.forEach((key, i) => {
+            this[key] = i;
+        });
+        Object.freeze(this);
+    }
+
+    *[Symbol.iterator]() {
+        for (let key of Object.keys(this)) yield key;
+    }
 }
