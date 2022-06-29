@@ -138,7 +138,17 @@ for (const button of typeButtons) {
     button.onclick = typeButtonClick;
 }
 
-uploadButton.onclick = (e) => uploadInput.click();
+uploadButton.onclick = async (e) => {
+    const modal = new Modal(
+        'Upload new image',
+        "Are you sure you want to upload a new image?\nAll your previous drawed bounding boxes will dissapear.\nAll generated text will stay.",
+        ModalTypes.YES_NO
+    );
+    const response = await modal.getResponse();
+    if (response)
+        uploadInput.click();
+}
+
 uploadInput.oninput = (e) => {
     const url = URL.createObjectURL(e.target.files[0]);
     const img = new Image();
