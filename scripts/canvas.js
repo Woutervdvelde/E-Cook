@@ -139,6 +139,9 @@ for (const button of typeButtons) {
 }
 
 uploadButton.onclick = async (e) => {
+    if (revertible.history.length == 0)
+        return uploadInput.click();
+        
     const modal = new Modal(
         'Upload new image',
         "Are you sure you want to upload a new image?\nAll your previous drawed bounding boxes will dissapear.\nAll generated text will stay.",
