@@ -88,6 +88,7 @@ const getImageFromCanvas = () => {
 }
 
 canvas.onmousedown = (e) => {
+    e.preventDefault();
     const position = canvas.getBoundingClientRect();
     mouseStart.x = e.clientX - position.x;
     mouseStart.y = e.clientY - position.y;
@@ -141,7 +142,7 @@ for (const button of typeButtons) {
 uploadButton.onclick = async (e) => {
     if (revertible.history.length == 0)
         return uploadInput.click();
-        
+
     const modal = new Modal(
         'Upload new image',
         "Are you sure you want to upload a new image?\nAll your previous drawed bounding boxes will dissapear.\nAll generated text will stay.",
@@ -152,10 +153,16 @@ uploadButton.onclick = async (e) => {
         uploadInput.click();
 }
 
+const updateCanvasSize = (img) => {
+    canvas.height = img.height / (img.width / canvas.width);
+    drawBackground();
+}
+
 uploadInput.oninput = (e) => {
     const url = URL.createObjectURL(e.target.files[0]);
     const img = new Image();
     img.onload = async () => {
+        updateCanvasSize(img);
         ctx.fillStyle = 'white';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
