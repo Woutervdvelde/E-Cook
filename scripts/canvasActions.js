@@ -6,6 +6,7 @@ class HistoryItem {
      * @param {*} type 
      * @param {Image|string} image 
      */
+    recognition = null;
     constructor(bounds, type, image) {
         this.bounds = bounds;
         this.type = type;

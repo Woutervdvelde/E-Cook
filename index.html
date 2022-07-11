@@ -21,6 +21,7 @@
 
 <body>
     <!-- <img id="recipe" src="recipes/3.jpg"/> -->
+    <img id="source_image" />
     <div class="bounding-type-container">
         <button data-type="title" class="push-button type-button red active">Title</button>
         <button data-type="description" class="push-button type-button blue">Description</button>
@@ -42,6 +43,9 @@
                 redo
             </span>
         </button>
+    </div>
+    <div class="recognition-control-container">
+        <button class="push-button blue" id="convert_button">Convert</button>
     </div>
     <input type="file" id="recipe_upload">
     <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>

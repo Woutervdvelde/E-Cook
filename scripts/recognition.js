@@ -1,16 +1,55 @@
-const image = document.getElementById("recipe");
+const convertButton = document.getElementById("convert_button");
 
-const recognize = async () => {
-    const worker = Tesseract.createWorker({logger: m => console.log(m)});
-    await worker.load();
-    await worker.loadLanguage('nld');
-    await worker.initialize('nld');
-
-    const { data: { text } } = await worker.recognize(image.src);
-    console.log(text);
+const getBoundScaling = () => {
+    const scaleX = sourceImage.width / canvas.width;
+    const scaleY = sourceImage.height / canvas.height;
+    return { scaleX, scaleY };
 }
 
+const convertBounding = (historyItems, scaleX, scaleY) => {
+    return {
+        left: historyItems.bounds.x * scaleX,
+        top: historyItems.bounds.y * scaleY,
+        width: historyItems.bounds.x2 * scaleX,
+        height: historyItems.bounds.y2 * scaleY
+    };
+}
 
+const recognize = (logMethod) => {
+    return new Promise(async (resolve, reject) => {
+        if (!sourceImage.src) return;
+        const { scaleX, scaleY } = getBoundScaling();
+
+        const worker = Tesseract.createWorker({ logger: logMethod });
+        await worker.load();
+        await worker.loadLanguage('nld');
+        await worker.initialize('nld');
+
+        const results = [];
+        for (let i = 0; i < revertible.history.length; i++) {
+            const item = revertible.history[i];
+            if (item.type == "background") continue;
+
+            const bounds = convertBounding(item, scaleX, scaleY);
+            const data = await worker.recognize(sourceImage.src, { rectangle: bounds });
+            item.recognition = data;
+            results.push(data);
+        }
+
+        await worker.terminate();
+        resolve();
+    });
+}
+
+const startConverting = async () => {
+    const onRecorgnizeUpdate = (m) => {
+        console.log(m);
+    }
+
+    await recognize(onRecorgnizeUpdate);
+}
+
+convertButton.onclick = startConverting;
 
 
 

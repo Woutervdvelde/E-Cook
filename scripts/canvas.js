@@ -2,13 +2,14 @@ const canvas = document.getElementById("canvas");
 const typeButtons = document.getElementsByClassName("type-button");
 const uploadInput = document.getElementById("recipe_upload");
 const uploadButton = document.getElementById("recipe_upload_button");
+const sourceImage = document.getElementById("source_image");
 const ctx = canvas.getContext('2d');
 const revertible = new Revertible();
 
-const boundingBoxFillAlpha = .5;
+const boundingBoxFillAlpha = .4;
 const types = {
     title: {
-        name: 'Title',
+        name: 'title',
         colors: {
             name: 'red',
             outline: getComputedStyle(document.body).getPropertyValue('--color-red-400'),
@@ -16,7 +17,7 @@ const types = {
         }
     },
     description: {
-        name: 'Description',
+        name: 'description',
         colors: {
             name: 'blue',
             outline: getComputedStyle(document.body).getPropertyValue('--color-blue-400'),
@@ -24,7 +25,7 @@ const types = {
         }
     },
     ingredients: {
-        name: 'Ingredients',
+        name: 'ingredients',
         colors: {
             name: 'green',
             outline: getComputedStyle(document.body).getPropertyValue('--color-green-600'),
@@ -32,7 +33,7 @@ const types = {
         }
     },
     steps: {
-        name: 'Steps',
+        name: 'steps',
         colors: {
             name: 'yellow',
             outline: getComputedStyle(document.body).getPropertyValue('--color-yellow-400'),
@@ -169,6 +170,7 @@ uploadInput.oninput = (e) => {
         await saveDrawing();
         revertible.reset();
         revertible.addToHistory(null, 'background', background);
+        sourceImage.src = img.src;
     }
     img.src = url;
 }
