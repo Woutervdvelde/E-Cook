@@ -1,4 +1,5 @@
 const canvas = document.getElementById("canvas");
+const canvasContainer = document.getElementsByClassName("canvas-container")[0];
 const typeButtons = document.getElementsByClassName("type-button");
 const uploadInput = document.getElementById("recipe_upload");
 const uploadButton = document.getElementById("recipe_upload_button");

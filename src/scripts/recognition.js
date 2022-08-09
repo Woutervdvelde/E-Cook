@@ -41,18 +41,6 @@ const recognize = (logMethod) => {
     });
 }
 
-const startConverting = async () => {
-    const onRecorgnizeUpdate = (m) => {
-        console.log(m);
-    }
-
-    await recognize(onRecorgnizeUpdate);
-}
-
-convertButton.onclick = startConverting;
-
-
-
 // ORIGINAL TEXT OF IMAGE 3
 // Snijd de kipfilet in blokjes. Snipper de uien en de knoflook. Verhit de olie in
 // een pan en bak de kipfiletblokjes rondom bruin. Bak de ui en de knoflook

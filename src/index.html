@@ -48,12 +48,21 @@
         <button class="push-button blue" id="convert_button">Convert</button>
     </div>
     <input type="file" id="recipe_upload">
+
+    <template id="canvasLoadingOverlay">
+        <div class="canvas-loading-overlay">
+            <object type="image/svg+xml" data="./images/stove_loading.svg"></object>
+            <h1>loading...</h1>
+        </div>
+    </template>
+
     <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
     <script src="scripts/util.js"></script>
     <script src="scripts/modal.js"></script>
     <script src="scripts/canvasActions.js"></script>
     <script src="scripts/canvas.js"></script>
     <script src="scripts/recognition.js"></script>
+    <script src="scripts/convert.js"></script>
 </body>
 
 </html>
