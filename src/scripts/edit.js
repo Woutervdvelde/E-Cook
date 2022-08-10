@@ -1,0 +1,1 @@
+const revertible = JSON.parse(localStorage.getItem("conversion_data"));
