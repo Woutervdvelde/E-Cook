@@ -5,20 +5,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/edit.css">
     <link rel="stylesheet" href="styles/pushbutton.css">
     <title>e-Cook edit</title>
 </head>
 
 <body>
-    <h1>Edit</h1>
+    <div class="container">
+        <div class="breadcrumbs-container">
+            <a class="title active" onclick="editNavigate('title')">Title</a>
+            <a class="description" onclick="editNavigate('description')">Description</a>
+            <a class="ingredients" onclick="editNavigate('ingredients')">Ingredients</a>
+            <a class="steps" onclick="editNavigate('steps')">Steps</a>
+            <hr>
+        </div>
+        <div class="edit-container">
+            <label for="title">Recipe title</label>
+            <input id="title" value="meow"/>
+        </div>
+        <div class="navigation-container">
+            <button class="push-button black" onclick="editNavigate('back')">< back</button>
+            <button class="push-button black" onclick="editNavigate('next')">next ></button>
+        </div>
+    </div>
+
+    <template id="edit_template_title">
+        <label for="title">Recipe title</label>
+        <input id="title" value="meow"/>
+    </template>
+    <template id="edit_template_description">
+
+    </template>
+    <template id="edit_template_ingredients">
+
+    </template>
+    <template id="edit_template_steps">
+
+    </template>
 
     <script src="scripts/util.js"></script>
     <script src="scripts/edit.js"></script>

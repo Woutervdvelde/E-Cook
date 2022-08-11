@@ -1,0 +1,49 @@
+.container {
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.breadcrumbs-container {
+    margin: 5em 0 2.5em 0;
+}
+
+.breadcrumbs-container a {
+    font-size: 1.25em;
+    text-decoration: none;
+    color: var(--color-dark-400);
+    margin: 0 .5em;
+    cursor: pointer;
+}
+
+.edit-container {
+    min-height: 75vh;
+}
+
+.edit-container label {
+    font-size: 1.25em;
+}
+
+.edit-container input {
+    width: 100%;
+    padding: .1em;
+    border-width: 0px 0px 3px 0;
+    border-style: solid;
+    border-color: var(--color-dark-400);
+    border-radius: 5px 5px 0 0;
+    font-size: 3em;
+    transition: all .25s ease-in-out;
+}
+
+.edit-container input::selection {
+    background-color: var(--color-blue-100);
+}
+
+
+.breadcrumbs-container a.active {
+    font-weight: bold;
+}
+
+.navigation-container {
+    display: flex;
+    justify-content: space-between;
+}
