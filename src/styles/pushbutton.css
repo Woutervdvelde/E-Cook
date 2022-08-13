@@ -23,6 +23,10 @@
     border-color: var(--color-dark-400);
 }
 
+.push-button:disabled {
+    cursor: default;
+}
+
 .push-button.red {
     background: var(--color-red-100);
     border-color: var(--color-red-400);

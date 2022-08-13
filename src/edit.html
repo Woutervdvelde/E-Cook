@@ -27,13 +27,13 @@
             <a class="steps" onclick="editNavigate('steps')">Steps</a>
             <hr>
         </div>
-        <div class="edit-container">
+        <div id="edit_container" class="edit-container">
             <label for="title">Recipe title</label>
             <input id="title" value="meow"/>
         </div>
         <div class="navigation-container">
             <button id="edit_back_button" class="push-button" onclick="editNavigate('back')">< back</button>
-            <!-- <button id="edit_finish_button" class="push-button blue" onclick="editNavigate('back')">finish</button> -->
+            <button id="edit_finish_button" class="push-button blue">finish</button>
             <button id="edit_next_button" class="push-button" onclick="editNavigate('next')">next ></button>
         </div>
     </div>
@@ -43,13 +43,13 @@
         <input id="title" value="meow"/>
     </template>
     <template id="edit_template_description">
-
+        <h1>description</h1>
     </template>
     <template id="edit_template_ingredients">
-
+        <h1>ingredients</h1>
     </template>
     <template id="edit_template_steps">
-
+        <h1>steps</h1>
     </template>
 
     <script src="scripts/util.js"></script>
