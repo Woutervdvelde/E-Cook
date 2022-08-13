@@ -26,13 +26,20 @@
 .edit-container input {
     width: 100%;
     padding: .1em;
+    background-color: transparent;
     border-width: 0px 0px 3px 0;
     border-style: solid;
     border-color: var(--color-dark-400);
     border-radius: 5px 5px 0 0;
     font-size: 3em;
-    transition: all .25s ease-in-out;
+    transition: all .25s ease-out;
 }
+
+.edit-container input:focus {
+    outline: none;
+    border-color: var(--color-blue-400);
+}
+
 
 .edit-container input::selection {
     background-color: var(--color-blue-100);
@@ -40,7 +47,7 @@
 
 
 .breadcrumbs-container a.active {
-    font-weight: bold;
+    text-shadow: 0px 0px 1px var(--color-dark-400);
 }
 
 .navigation-container {
