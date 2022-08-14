@@ -57,7 +57,8 @@ const stopDraw = async () => {
     await saveDrawing();
 
     const bounds = parseCords(mouseStart.x, mouseStart.y, mouseEnd.x, mouseEnd.y);
-    revertible.addToHistory(bounds, currentType, background);
+    const image = getCroppedImage(mouseStart.x, mouseStart.y, mouseEnd.x, mouseEnd.y);
+    revertible.addToHistory(bounds, currentType, background, image);
 }
 
 const drawBackground = () => {
@@ -137,9 +138,8 @@ const typeButtonClick = (e) => {
     e.target.classList.add('active');
 }
 
-for (const button of typeButtons) {
+for (const button of typeButtons)
     button.onclick = typeButtonClick;
-}
 
 uploadButton.onclick = async (e) => {
     if (revertible.history.length == 0)
@@ -160,6 +160,15 @@ const updateCanvasSize = (img) => {
     drawBackground();
 }
 
+const getCroppedImage = (x, y, x2, y2) => {
+    const c = document.createElement('canvas');
+    c.width = x2 - x;
+    c.height = y2 - y;
+    c.getContext('2d').drawImage(revertible.getBackground(), x * -1, y * -1, canvas.width, canvas.height);
+    const img = c.toDataURL("img/png");
+    return img;
+}
+
 uploadInput.oninput = (e) => {
     const url = URL.createObjectURL(e.target.files[0]);
     const img = new Image();
@@ -170,7 +179,7 @@ uploadInput.oninput = (e) => {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         await saveDrawing();
         revertible.reset();
-        revertible.addToHistory(null, 'background', background);
+        revertible.addToHistory(null, 'background', background, canvas.toDataURL("img/png"));
         sourceImage.src = img.src;
     }
     img.src = url;

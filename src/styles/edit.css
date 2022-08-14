@@ -16,6 +16,8 @@
 }
 
 .edit-container {
+    display: flex;
+    justify-content: center;
     min-height: 75vh;
 }
 
@@ -53,4 +55,13 @@
 .navigation-container {
     display: flex;
     justify-content: space-between;
+}
+
+.edit-recipe-image-container {
+    max-width: 50%;
+    margin: 0 1em;
+}
+
+#editRecipeImage {
+    max-width: 50%;
 }

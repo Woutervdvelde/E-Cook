@@ -21,15 +21,19 @@
 <body>
     <div class="container">
         <div class="breadcrumbs-container">
-            <a class="title active" onclick="editNavigate('title')">Title</a>
+            <a class="title" onclick="editNavigate('title')">Title</a>
             <a class="description" onclick="editNavigate('description')">Description</a>
             <a class="ingredients" onclick="editNavigate('ingredients')">Ingredients</a>
             <a class="steps" onclick="editNavigate('steps')">Steps</a>
             <hr>
         </div>
-        <div id="edit_container" class="edit-container">
-            <label for="title">Recipe title</label>
-            <input id="title" value="meow"/>
+        <div class="edit-container">
+            <div class="edit-recipe-image-container">
+                <img id="edit_recipe_image"/>
+            </div>
+            <div id="edit_container">
+
+            </div>
         </div>
         <div class="navigation-container">
             <button id="edit_back_button" class="push-button" onclick="editNavigate('back')">< back</button>
@@ -40,7 +44,7 @@
 
     <template id="edit_template_title">
         <label for="title">Recipe title</label>
-        <input id="title" value="meow"/>
+        <input id="title" value="meow" />
     </template>
     <template id="edit_template_description">
         <h1>description</h1>

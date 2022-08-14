@@ -4,14 +4,16 @@ class HistoryItem {
      * Create a HistoryItem
      * @param {Object} bounds 
      * @param {*} type 
-     * @param {Image|string} image 
+     * @param {Image|string} image - Whole background image
+     * @param {Image|string} croppedImage - Whole image cropped by defined bounds
      */
     recognition = null;
-    constructor(bounds, type, image) {
+    constructor(bounds, type, image, croppedImage) {
         this.bounds = bounds;
         this.type = type;
         this.image = new window.Image();
         this.image.src = typeof image == 'string' ? image : image.src;
+        this.croppedImage = croppedImage;
     }
 }
 
@@ -29,8 +31,8 @@ class Revertible {
         return this.history[this.history.length - 1];
     }
 
-    addToHistory(bounds, type, image) {
-        const item = new HistoryItem(bounds, type, image);
+    addToHistory(bounds, type, image, croppedImage) {
+        const item = new HistoryItem(bounds, type, image, croppedImage);
         this.history.push(item);
     }
 
@@ -66,5 +68,23 @@ class Revertible {
     reset() {
         this.history = [];
         this.future = [];
+    }
+
+    /**
+     * Returns only the background image without any bounding boxes drawn
+     * @Return {Image|string} background image
+     */
+    getBackground() {
+        const item = this.history.find(i => i.type == 'background');
+        if (item) return item.image;
+        return null;
+    }
+
+    /**
+     * Procceses background image to base64 for later use
+     */
+    processBackground() {
+        const background = this.getBackground();
+        
     }
 }

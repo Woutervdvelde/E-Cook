@@ -1,5 +1,6 @@
 const revertible = JSON.parse(localStorage.getItem("conversion_data"));
 const editContainer = document.getElementById("edit_container");
+const editRecipeImage = document.getElementById("edit_recipe_image");
 const nextButton = document.getElementById("edit_next_button");
 const backButton = document.getElementById("edit_back_button");
 const finishButton = document.getElementById("edit_finish_button");
@@ -61,4 +62,6 @@ const setNavigatedTemplate = (page) => {
 
 window.onload = () => {
     checkButtonToggle();
+    setNavigationActive(currentPage);
+    setNavigatedTemplate(currentPage);
 }
