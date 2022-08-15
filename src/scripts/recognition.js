@@ -1,11 +1,5 @@
 const convertButton = document.getElementById("convert_button");
 
-const getBoundScaling = () => {
-    const scaleX = sourceImage.width / canvas.width;
-    const scaleY = sourceImage.height / canvas.height;
-    return { scaleX, scaleY };
-}
-
 const convertBounding = (historyItems, scaleX, scaleY) => {
     return {
         left: historyItems.bounds.x * scaleX,

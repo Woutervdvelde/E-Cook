@@ -160,11 +160,18 @@ const updateCanvasSize = (img) => {
     drawBackground();
 }
 
+const getBoundScaling = () => {
+    const scaleX = sourceImage.width / canvas.width;
+    const scaleY = sourceImage.height / canvas.height;
+    return { scaleX, scaleY };
+}
+
 const getCroppedImage = (x, y, x2, y2) => {
+    const { scaleX, scaleY } = getBoundScaling();
     const c = document.createElement('canvas');
-    c.width = x2 - x;
-    c.height = y2 - y;
-    c.getContext('2d').drawImage(revertible.getBackground(), x * -1, y * -1, canvas.width, canvas.height);
+    c.width = (x2 - x) * scaleX;
+    c.height = (y2 - y) * scaleY;
+    c.getContext('2d').drawImage(sourceImage, (x * -1) * scaleX, (y * -1) * scaleY, sourceImage.width, sourceImage.height);
     const img = c.toDataURL("img/png");
     return img;
 }
