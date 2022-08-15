@@ -1,12 +1,25 @@
 const revertible = JSON.parse(localStorage.getItem("conversion_data"));
+const recipe = {
+    title: "",
+    description: "",
+    ingredients: "",
+    steps: ""
+}
+
 const editContainer = document.getElementById("edit_container");
 const editRecipeImage = document.getElementById("edit_recipe_image");
 const nextButton = document.getElementById("edit_next_button");
 const backButton = document.getElementById("edit_back_button");
 const finishButton = document.getElementById("edit_finish_button");
+const getCurrentInput = () => document.getElementById("current_input");
 
 const pages = ['title', 'description', 'ingredients', 'steps'];
 let currentPage = pages[0];
+
+const textAreaResize = () => {
+    this.style.height = "auto";
+    this.style.height = `${this.scrollHeight}px`;
+}
 
 const editNavigate = (page) => {
     if (page == 'next')
@@ -19,6 +32,7 @@ const editNavigate = (page) => {
         currentPage = page;
         setNavigationActive(page);
         setNavigatedTemplate(page);
+        loadTemplateData(page);
     }
     checkButtonToggle();
 }
@@ -58,10 +72,33 @@ const setNavigatedTemplate = (page) => {
 
     editContainer.innerHTML = '';
     editContainer.appendChild(template.content.cloneNode(true));
+    const textarea = editContainer.querySelector('textarea');
+    textarea.id = "current_input";
+    textarea.rows = 1;
+    textarea.setAttribute('oninput', 'this.style.height = "";this.style.height = this.scrollHeight + "px"');
+}
+
+const loadTemplateData = () => {
+    const textarea = getCurrentInput();
+    textarea.value = recipe[currentPage];
+    textarea.dispatchEvent(new Event('input'));
+}
+
+const getHistoryItemsByType = (revertible, type) => revertible.history.filter(h => h.type.name == type);
+
+const parseData = (revertible) => {
+    const h_titles = getHistoryItemsByType(revertible, "title");
+    const h_descriptions = getHistoryItemsByType(revertible, "description");
+    const h_ingredients = getHistoryItemsByType(revertible, "ingredients");
+    const h_steps = getHistoryItemsByType(revertible, "steps");
+
+    recipe.title = h_titles.map(t => t.recognition.text.trim()).join('\n');
+    recipe.description = h_descriptions.map(t => t.recognition.text.trim()).join('\n');
+    recipe.ingredients = h_ingredients.map(t => t.recognition.text.trim()).join('\n');
+    recipe.steps = h_steps.map(t => t.recognition.text.trim()).join('\n');
 }
 
 window.onload = () => {
-    checkButtonToggle();
-    setNavigationActive(currentPage);
-    setNavigatedTemplate(currentPage);
+    parseData(revertible);
+    editNavigate(pages[0]);
 }

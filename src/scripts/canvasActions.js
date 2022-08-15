@@ -79,12 +79,4 @@ class Revertible {
         if (item) return item.image;
         return null;
     }
-
-    /**
-     * Procceses background image to base64 for later use
-     */
-    processBackground() {
-        const background = this.getBackground();
-        
-    }
 }

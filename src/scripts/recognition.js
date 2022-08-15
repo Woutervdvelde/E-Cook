@@ -25,15 +25,16 @@ const recognize = (logMethod) => {
         await worker.loadLanguage('nld');
         await worker.initialize('nld');
 
-        const results = [];
         for (let i = 0; i < revertible.history.length; i++) {
             const item = revertible.history[i];
             if (item.type == "background") continue;
 
             const bounds = convertBounding(item, scaleX, scaleY);
-            const data = await worker.recognize(sourceImage.src, { rectangle: bounds });
-            item.recognition = data;
-            results.push(data);
+            const recognition = await worker.recognize(sourceImage.src, { rectangle: bounds });
+            item.recognition = {
+                text: recognition.data.text,
+                paragraphs: recognition.data.paragraphs.map(p => p.text)
+            };
         }
 
         await worker.terminate();
