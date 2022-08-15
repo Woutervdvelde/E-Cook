@@ -1,13 +1,13 @@
 const revertible = JSON.parse(localStorage.getItem("conversion_data"));
 const recipe = {
-    title: "",
-    description: "",
-    ingredients: "",
-    steps: ""
+    title: {text: "", images: []},
+    description: {text: "", images: []},
+    ingredients: {text: "", images: []},
+    steps: {text: "", images: []}
 }
 
 const editContainer = document.getElementById("edit_container");
-const editRecipeImage = document.getElementById("edit_recipe_image");
+const imageContainer = document.querySelector(".edit-recipe-image-container");
 const nextButton = document.getElementById("edit_next_button");
 const backButton = document.getElementById("edit_back_button");
 const finishButton = document.getElementById("edit_finish_button");
@@ -33,6 +33,7 @@ const editNavigate = (page) => {
         setNavigationActive(page);
         setNavigatedTemplate(page);
         loadTemplateData(page);
+        setRecipeImages(page);
     }
     checkButtonToggle();
 }
@@ -78,10 +79,19 @@ const setNavigatedTemplate = (page) => {
     textarea.setAttribute('oninput', 'this.style.height = "";this.style.height = this.scrollHeight + "px"');
 }
 
-const loadTemplateData = () => {
+const loadTemplateData = (page) => {
     const textarea = getCurrentInput();
-    textarea.value = recipe[currentPage];
+    textarea.value = recipe[page].text;
     textarea.dispatchEvent(new Event('input'));
+}
+
+const setRecipeImages = (page) => {
+    imageContainer.innerHTML = "";
+    recipe[page].images.forEach(image => {
+        const img = document.createElement("img");
+        img.src = image;
+        imageContainer.appendChild(img);
+    });
 }
 
 const getHistoryItemsByType = (revertible, type) => revertible.history.filter(h => h.type.name == type);
@@ -92,10 +102,15 @@ const parseData = (revertible) => {
     const h_ingredients = getHistoryItemsByType(revertible, "ingredients");
     const h_steps = getHistoryItemsByType(revertible, "steps");
 
-    recipe.title = h_titles.map(t => t.recognition.text.trim()).join('\n');
-    recipe.description = h_descriptions.map(t => t.recognition.text.trim()).join('\n');
-    recipe.ingredients = h_ingredients.map(t => t.recognition.text.trim()).join('\n');
-    recipe.steps = h_steps.map(t => t.recognition.text.trim()).join('\n');
+    recipe.title.text = h_titles.map(item => item.recognition.text.trim()).join('\n');
+    recipe.description.text = h_descriptions.map(item => item.recognition.text.trim()).join('\n');
+    recipe.ingredients.text = h_ingredients.map(item => item.recognition.text.trim()).join('\n');
+    recipe.steps.text = h_steps.map(item => item.recognition.text.trim()).join('\n');
+
+    recipe.title.images = h_titles.map(item => item.croppedImage);
+    recipe.description.images = h_descriptions.map(item => item.croppedImage);
+    recipe.ingredients.images = h_ingredients.map(item => item.croppedImage);
+    recipe.steps.images = h_steps.map(item => item.croppedImage);
 }
 
 window.onload = () => {

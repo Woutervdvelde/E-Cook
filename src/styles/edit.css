@@ -13,6 +13,11 @@
     color: var(--color-dark-400);
     margin: 0 .5em;
     cursor: pointer;
+    user-select: none;
+}
+
+#edit_container {
+    flex-grow: 2;
 }
 
 .edit-container {
@@ -22,7 +27,9 @@
 }
 
 .edit-container label, .edit-container p {
+    margin-bottom: 1em;
     font-size: 1.25em;
+    user-select: none;
 }
 
 .edit-container textarea {
@@ -38,6 +45,10 @@
     transition: all .25s ease-out;
     resize: none;
     overflow: hidden;
+}
+
+.edit-container textarea.medium {
+    font-size: 1.5em;
 }
 
 .edit-container textarea:focus {
@@ -61,8 +72,10 @@
 .edit-recipe-image-container {
     max-width: 50%;
     margin: 0 1em;
+    user-select: none;
+    flex-grow: 1;
 }
 
-#editRecipeImage {
-    max-width: 50%;
+.edit-recipe-image-container img {
+    width: 75%;
 }
