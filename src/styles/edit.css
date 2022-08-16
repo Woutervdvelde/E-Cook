@@ -79,3 +79,12 @@
 .edit-recipe-image-container img {
     width: 75%;
 }
+
+#recipe_image_container {
+    border: 3px solid var(--color-dark-400);
+    border-radius: 5px;
+}
+
+.recipe_image_switcher {
+    margin-bottom: 1em;
+}

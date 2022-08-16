@@ -1,13 +1,14 @@
 const revertible = JSON.parse(localStorage.getItem("conversion_data"));
 const recipe = {
-    title: {text: "", images: []},
-    description: {text: "", images: []},
-    ingredients: {text: "", images: []},
-    steps: {text: "", images: []}
+    title: { text: "", images: [] },
+    description: { text: "", images: [] },
+    ingredients: { text: "", images: [] },
+    steps: { text: "", images: [] }
 }
 
 const editContainer = document.getElementById("edit_container");
-const imageContainer = document.querySelector(".edit-recipe-image-container");
+const imageContainer = document.getElementById("recipe_image_container");
+const imageToggleButton = document.getElementById("toggle_image_button");
 const nextButton = document.getElementById("edit_next_button");
 const backButton = document.getElementById("edit_back_button");
 const finishButton = document.getElementById("edit_finish_button");
@@ -15,6 +16,7 @@ const getCurrentInput = () => document.getElementById("current_input");
 
 const pages = ['title', 'description', 'ingredients', 'steps'];
 let currentPage = pages[0];
+let showWholeRecipe = false;
 
 const textAreaResize = () => {
     this.style.height = "auto";
@@ -33,7 +35,9 @@ const editNavigate = (page) => {
         setNavigationActive(page);
         setNavigatedTemplate(page);
         loadTemplateData(page);
-        setRecipeImages(page);
+        
+        if (showWholeRecipe) setWholeRecipeImage();
+        else setRecipeImages(page);
     }
     checkButtonToggle();
 }
@@ -77,6 +81,7 @@ const setNavigatedTemplate = (page) => {
     textarea.id = "current_input";
     textarea.rows = 1;
     textarea.setAttribute('oninput', 'this.style.height = "";this.style.height = this.scrollHeight + "px"');
+    textarea.oninput = onTextareaChange;
 }
 
 const loadTemplateData = (page) => {
@@ -92,6 +97,24 @@ const setRecipeImages = (page) => {
         img.src = image;
         imageContainer.appendChild(img);
     });
+
+    imageToggleButton.innerText = "show whole recipe";
+}
+
+const setWholeRecipeImage = () => {
+    imageContainer.innerHTML = "";
+    const img = document.createElement("img");
+    img.src = revertible.history.find(h => h.type == "background").croppedImage;
+    imageContainer.appendChild(img);
+
+    imageToggleButton.innerText = "show cropped recipe";
+}
+
+const onTextareaChange = (e) => {
+    const elem = e.target;
+    elem.style.height = "";
+    elem.style.height = `${elem.scrollHeight}px`;
+    recipe[currentPage].text = elem.value;
 }
 
 const getHistoryItemsByType = (revertible, type) => revertible.history.filter(h => h.type.name == type);
@@ -116,4 +139,12 @@ const parseData = (revertible) => {
 window.onload = () => {
     parseData(revertible);
     editNavigate(pages[0]);
+}
+
+imageToggleButton.onclick = () => {
+    showWholeRecipe = !showWholeRecipe;
+    if (showWholeRecipe)
+        setWholeRecipeImage();
+    else
+        setRecipeImages(currentPage);
 }

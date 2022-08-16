@@ -27,6 +27,11 @@
     cursor: default;
 }
 
+.push-button.small {
+    font-size: .75em;
+    padding: .5em;
+}
+
 .push-button.red {
     background: var(--color-red-100);
     border-color: var(--color-red-400);
