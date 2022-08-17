@@ -35,7 +35,7 @@ const editNavigate = (page) => {
         setNavigationActive(page);
         setNavigatedTemplate(page);
         loadTemplateData(page);
-        
+
         if (showWholeRecipe) setWholeRecipeImage();
         else setRecipeImages(page);
     }
@@ -98,7 +98,7 @@ const setRecipeImages = (page) => {
         imageContainer.appendChild(img);
     });
 
-    imageToggleButton.innerText = "show whole recipe";
+    imageToggleButton.innerHTML = `<span class="material-symbols-rounded">crop_free</span>full image`;
 }
 
 const setWholeRecipeImage = () => {
@@ -107,7 +107,7 @@ const setWholeRecipeImage = () => {
     img.src = revertible.history.find(h => h.type == "background").croppedImage;
     imageContainer.appendChild(img);
 
-    imageToggleButton.innerText = "show cropped recipe";
+    imageToggleButton.innerHTML = `<span class="material-symbols-rounded">crop</span>cropped`;
 }
 
 const onTextareaChange = (e) => {

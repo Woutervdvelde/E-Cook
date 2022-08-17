@@ -32,6 +32,15 @@
     padding: .5em;
 }
 
+.push-button.icon {
+    display: flex;
+    align-items: center;
+}
+
+.push-button.icon > * {
+    margin: 0 .25em
+}
+
 .push-button.red {
     background: var(--color-red-100);
     border-color: var(--color-red-400);
