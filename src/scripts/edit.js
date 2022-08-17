@@ -96,6 +96,7 @@ const loadTemplateData = (page) => {
     switch (page) {
         case "ingredients":
             loadIngredients();
+            enableContextMenu();
             break;
         default:
             const textarea = getCurrentInput();
