@@ -26,7 +26,8 @@
     min-height: 75vh;
 }
 
-.edit-container label, .edit-container p {
+.edit-container label,
+.edit-container p {
     margin-bottom: 1em;
     font-size: 1.25em;
     user-select: none;
@@ -54,10 +55,6 @@
 .edit-container textarea:focus {
     outline: none;
     border-color: var(--color-blue-400);
-}
-
-.edit-container textarea::selection {
-    background-color: var(--color-blue-100);
 }
 
 .breadcrumbs-container a.active {
@@ -89,4 +86,54 @@
 
 .recipe_image_switcher {
     margin-bottom: 1em;
+}
+
+.edit-container input {
+    width: 100%;
+    margin: .25em 0;
+    padding: 1em;
+    background-color: rgba(0, 0, 0, .1);
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1.1em;
+    caret-color: var(--color-blue-400);
+    transition: all .1s ease-out;
+}
+
+.edit-container input:focus {
+    outline: none;
+    border-width: 0px 0px 3px 0;
+    border-style: solid;
+    border-color: var(--color-blue-400);
+}
+
+.ingredient-input-container {
+    position: relative;
+}
+
+.ingredient-delete-container {
+    position: absolute;
+    bottom: .25em;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    height: calc(100% - .5em);
+    border-radius: 5px;
+    background-color: var(--color-red-200);
+    cursor: pointer;
+    user-select: none;
+    opacity: .5;
+    transition: all .25s ease-out;
+}
+
+.ingredient-delete-container:hover {
+    opacity: 1;
+    background-color: var(--color-red-300);
+}
+
+.ingredient-delete-container:active {
+    background-color: var(--color-red-400);
 }

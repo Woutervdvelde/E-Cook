@@ -2,8 +2,8 @@ const revertible = JSON.parse(localStorage.getItem("conversion_data"));
 const recipe = {
     title: { text: "", images: [] },
     description: { text: "", images: [] },
-    ingredients: { text: "", images: [] },
-    steps: { text: "", images: [] }
+    ingredients: { text: [], images: [] },
+    steps: { text: [], images: [] }
 }
 
 const editContainer = document.getElementById("edit_container");
@@ -77,17 +77,55 @@ const setNavigatedTemplate = (page) => {
 
     editContainer.innerHTML = '';
     editContainer.appendChild(template.content.cloneNode(true));
+
     const textarea = editContainer.querySelector('textarea');
-    textarea.id = "current_input";
-    textarea.rows = 1;
-    textarea.setAttribute('oninput', 'this.style.height = "";this.style.height = this.scrollHeight + "px"');
-    textarea.oninput = onTextareaChange;
+    if (textarea) {
+        textarea.id = "current_input";
+        textarea.rows = 1;
+        textarea.setAttribute('oninput', 'this.style.height = "";this.style.height = this.scrollHeight + "px"');
+        textarea.oninput = onTextareaChange;
+    }
 }
 
 const loadTemplateData = (page) => {
-    const textarea = getCurrentInput();
-    textarea.value = recipe[page].text;
-    textarea.dispatchEvent(new Event('input'));
+    switch (page) {
+        case "ingredients":
+            loadIngredients();
+            break;
+        default:
+            const textarea = getCurrentInput();
+            textarea.value = recipe[page].text;
+            textarea.dispatchEvent(new Event('input'));
+            break;
+    }
+}
+
+const getIngredientInput = (ingredient, index) => {
+    const template = document.getElementById("edit_template_ingredient_input");
+    const elem = template.content.cloneNode(true);
+
+    const input = elem.querySelector("input");
+    input.oninput = (e) => { onInputChange(e, ingredient) };
+    input.setAttribute('data-ingredient', index);
+    input.value = ingredient.value;
+
+    elem.querySelector(".ingredient-delete-container").onclick = (e) => { deleteIngredient(e, ingredient) };
+    return elem;
+}
+
+const loadIngredients = () => {
+    const elem = editContainer.querySelector(".ingredients-container");
+    elem.innerHTML = "";
+
+    recipe.ingredients.text.forEach((ingredient, index) => {
+        elem.appendChild(getIngredientInput(ingredient, index));
+        ingredient.element = elem.children[elem.childElementCount - 1];
+    });
+}
+
+const deleteIngredient = (e, ingredient) => {
+    ingredient.element.parentElement.removeChild(ingredient.element);
+    recipe.ingredients.text.splice(recipe.ingredients.text.indexOf(ingredient), 1);
 }
 
 const setRecipeImages = (page) => {
@@ -117,6 +155,10 @@ const onTextareaChange = (e) => {
     recipe[currentPage].text = elem.value;
 }
 
+const onInputChange = (e, ingredient) => {
+    ingredient.value = e.target.value;
+}
+
 const getHistoryItemsByType = (revertible, type) => revertible.history.filter(h => h.type.name == type);
 
 const parseData = (revertible) => {
@@ -127,8 +169,8 @@ const parseData = (revertible) => {
 
     recipe.title.text = h_titles.map(item => item.recognition.text.trim()).join('\n');
     recipe.description.text = h_descriptions.map(item => item.recognition.text.trim()).join('\n');
-    recipe.ingredients.text = h_ingredients.map(item => item.recognition.text.trim()).join('\n');
-    recipe.steps.text = h_steps.map(item => item.recognition.text.trim()).join('\n');
+    recipe.ingredients.text = h_ingredients.map(item => item.recognition.paragraphs).flat().map(t => { return { value: t.trim() } });
+    recipe.steps.text = h_steps.map(item => item.recognition.paragraphs).flat().map(t => t.trim());
 
     recipe.title.images = h_titles.map(item => item.croppedImage);
     recipe.description.images = h_descriptions.map(item => item.croppedImage);
