@@ -21,8 +21,8 @@
 }
 
 .edit-container {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
     min-height: 75vh;
 }
 
@@ -70,17 +70,19 @@
 }
 
 .edit-recipe-image-container {
-    max-width: 50%;
     margin: 0 1em;
     user-select: none;
-    flex-grow: 1;
 }
 
 .edit-recipe-image-container img {
     width: 75%;
+    margin: .25em 0;
 }
 
 #recipe_image_container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     border: 3px solid var(--color-dark-400);
     border-radius: 5px;
 }
