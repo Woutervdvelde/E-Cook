@@ -23,7 +23,7 @@ const textAreaResize = () => {
     this.style.height = `${this.scrollHeight}px`;
 }
 
-const editNavigate = (page) => {
+const editNavigate = async (page) => {
     if (page == 'next')
         page = pages[pages.indexOf(currentPage) + 1];
 
@@ -31,6 +31,9 @@ const editNavigate = (page) => {
         page = pages[pages.indexOf(currentPage) - 1];
 
     if (page) {
+        editContainer.style.opacity = 0;
+        await timeout(200);
+
         currentPage = page;
         setNavigationActive(page);
         setNavigatedTemplate(page);
@@ -38,6 +41,8 @@ const editNavigate = (page) => {
 
         if (showWholeRecipe) setWholeRecipeImage();
         else setRecipeImages(page);
+
+        editContainer.style.opacity = 1;
     }
     checkButtonToggle();
 }
