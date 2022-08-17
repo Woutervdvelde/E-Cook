@@ -105,13 +105,12 @@ const loadTemplateData = (page) => {
     }
 }
 
-const getIngredientInput = (ingredient, index) => {
+const getIngredientInput = (ingredient) => {
     const template = document.getElementById("edit_template_ingredient_input");
     const elem = template.content.cloneNode(true);
 
     const input = elem.querySelector("input");
     input.oninput = (e) => { onInputChange(e, ingredient) };
-    input.setAttribute('data-ingredient', index);
     input.value = ingredient.value;
 
     elem.querySelector(".ingredient-delete-container").onclick = (e) => { deleteIngredient(e, ingredient) };
@@ -122,10 +121,17 @@ const loadIngredients = () => {
     const elem = editContainer.querySelector(".ingredients-container");
     elem.innerHTML = "";
 
-    recipe.ingredients.text.forEach((ingredient, index) => {
-        elem.appendChild(getIngredientInput(ingredient, index));
+    recipe.ingredients.text.forEach((ingredient) => {
+        elem.appendChild(getIngredientInput(ingredient));
         ingredient.element = elem.children[elem.childElementCount - 1];
     });
+
+    document.querySelector(".add-ingredient-container").onclick = () => {
+        recipe.ingredients.text.push({value: ""});
+        const ingredient = recipe.ingredients.text.last();
+        elem.appendChild(getIngredientInput(ingredient));
+        ingredient.element = elem.children.last();
+    }
 }
 
 const deleteIngredient = (e, ingredient) => {

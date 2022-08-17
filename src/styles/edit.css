@@ -113,6 +113,22 @@
     position: relative;
 }
 
+.add-ingredient-container {
+    display: flex;
+    align-items: center;
+    margin: .25em 0;
+    cursor: pointer;
+    transition: all .2s ease-out;
+}
+
+.add-ingredient-container span {
+    margin-right: .2em;
+}
+
+.add-ingredient-container:hover {
+    color: var(--color-blue-400);
+}
+
 .ingredient-delete-container {
     position: absolute;
     bottom: .25em;
