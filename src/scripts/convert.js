@@ -26,6 +26,10 @@ const startConverting = async () => {
     },0);
 
     await recognize(onRecorgnizeUpdate);
+
+    document.body.style.opacity = 0;
+    localStorage.setItem("conversion_data", JSON.stringify(revertible));
+    setTimeout(() => window.location = "edit.html", 250);
 }
 
 convertButton.onclick = startConverting;

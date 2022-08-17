@@ -49,6 +49,7 @@
 body {
     background-color: var(--color-light-400);
     font-family: 'Rubik', sans-serif;
+    transition: opacity .25s ease-in-out;
 }
 
 #source_image {
