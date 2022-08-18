@@ -3,11 +3,14 @@ const enableContextMenu = () => {
     document.querySelectorAll("input").forEach(input => {
         input.oncontextmenu = (e) => {
             e.preventDefault();
-            const { clientX: mouseX, clientY: mouseY } = e;
+            const { clientX: mouseX, clientY: mouseY } = e
 
-            contextMenu.style.top = `${mouseY}px`;
-            contextMenu.style.left = `${mouseX}px`;
-            contextMenu.classList.add("visible");
+            contextMenu.classList.remove("visible");
+            setTimeout(() => {
+                contextMenu.classList.add("visible");
+                contextMenu.style.top = `${mouseY - (contextMenu.clientHeight * 1.5)}px`;
+                contextMenu.style.left = `${mouseX - (contextMenu.clientWidth / 2)}px`;
+            });
         }
 
         document.body.addEventListener("click", (e) => {

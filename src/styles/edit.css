@@ -3,10 +3,35 @@
     z-index: 10000;
     border-radius: 5px;
     display: none;
+    transform: scale(0);
+    transform-origin: bottom center;
+
+    background-color: var(--color-dark-400);
+    color: var(--color-light-100);
+    user-select: none;
 }
 
 #context_menu.visible {
     display: block;
+    transform: scale(1);
+    transition: transform 1s ease-in-out;
+}
+
+.context-menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5em;
+    border-radius: inherit;
+    cursor: pointer;
+}
+
+.context-menu-item:hover {
+    background-color: var(--color-dark-300);
+}
+
+.context-menu-item:active {
+    background-color: var(--color-dark-200);
 }
 
 
