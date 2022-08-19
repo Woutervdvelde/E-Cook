@@ -1,8 +1,12 @@
 const contextMenu = document.getElementById("context_menu");
+const contextMenuSplit = document.getElementById("context_menu_split");
+let focusedInput;
+
 const enableContextMenu = () => {
     document.querySelectorAll("input").forEach(input => {
         input.oncontextmenu = (e) => {
             e.preventDefault();
+            focusedInput = input;
             const { clientX: mouseX, clientY: mouseY } = e
 
             contextMenu.classList.remove("visible");
@@ -19,3 +23,5 @@ const enableContextMenu = () => {
         });
     });
 }
+
+contextMenuSplit.onclick = (e) => splitIngredientText(e, focusedInput);

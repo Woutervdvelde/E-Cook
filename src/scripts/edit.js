@@ -118,6 +118,20 @@ const getIngredientInput = (ingredient) => {
     return elem;
 }
 
+const addEmptyIngredientInput = (afterElement) => {
+    recipe.ingredients.text.push({value: ""});
+    const ingredient = recipe.ingredients.text.last();
+    const input = getIngredientInput(ingredient);
+    if (afterElement) {
+        afterElement.after(input)
+        ingredient.element = afterElement.nextElementSibling;
+    } else {
+        elem.appendChild(input);
+        ingredient.element = elem.children.last();
+    }
+    return ingredient;
+}
+
 const loadIngredients = () => {
     const elem = editContainer.querySelector(".ingredients-container");
     elem.innerHTML = "";
@@ -127,17 +141,23 @@ const loadIngredients = () => {
         ingredient.element = elem.children[elem.childElementCount - 1];
     });
 
-    document.querySelector(".add-ingredient-container").onclick = () => {
-        recipe.ingredients.text.push({value: ""});
-        const ingredient = recipe.ingredients.text.last();
-        elem.appendChild(getIngredientInput(ingredient));
-        ingredient.element = elem.children.last();
-    }
+    document.querySelector(".add-ingredient-container").onclick = () => addEmptyIngredientInput();
 }
 
 const deleteIngredient = (e, ingredient) => {
     ingredient.element.parentElement.removeChild(ingredient.element);
     recipe.ingredients.text.splice(recipe.ingredients.text.indexOf(ingredient), 1);
+}
+
+const splitIngredientText = (e, input) => {
+    const first = input.value.slice(0, input.selectionStart).trim();
+    const second = input.value.slice(input.selectionStart).trim();
+
+    input.value = first;
+
+    const ingredient = addEmptyIngredientInput(input.closest(".ingredient-input-container"));
+    ingredient.value = second;
+    ingredient.element.querySelector("input").value = second;
 }
 
 const setRecipeImages = (page) => {
@@ -202,3 +222,4 @@ imageToggleButton.onclick = () => {
     else
         setRecipeImages(currentPage);
 }
+

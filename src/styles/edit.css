@@ -11,6 +11,15 @@
     user-select: none;
 }
 
+#context_menu .pointer {
+    content: "";
+    position: absolute;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--color-dark-400);
+    bottom: -6px;
+}
+
 #context_menu.visible {
     display: block;
     transform: scale(1);
