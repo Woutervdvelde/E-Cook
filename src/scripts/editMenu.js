@@ -19,9 +19,11 @@ const enableContextMenu = () => {
 
         document.body.addEventListener("click", (e) => {
             if (e.target.offsetParent != contextMenu)
-                contextMenu.classList.remove("visible");
+                hideContextMenu();
         });
     });
 }
+
+const hideContextMenu = () => contextMenu.classList.remove("visible");
 
 contextMenuSplit.onclick = (e) => splitIngredientText(e, focusedInput);

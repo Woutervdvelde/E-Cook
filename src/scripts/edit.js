@@ -5,6 +5,7 @@ const recipe = {
     ingredients: { text: [], images: [] },
     steps: { text: [], images: [] }
 }
+const getIngredientByElement = (element) => recipe.ingredients.text.find(i => i.element == element);
 
 const editContainer = document.getElementById("edit_container");
 const imageContainer = document.getElementById("recipe_image_container");
@@ -119,11 +120,12 @@ const getIngredientInput = (ingredient) => {
 }
 
 const addEmptyIngredientInput = (afterElement) => {
-    recipe.ingredients.text.push({value: ""});
+    recipe.ingredients.text.push({ value: "" });
     const ingredient = recipe.ingredients.text.last();
     const input = getIngredientInput(ingredient);
+
     if (afterElement) {
-        afterElement.after(input)
+        afterElement.after(input);
         ingredient.element = afterElement.nextElementSibling;
     } else {
         elem.appendChild(input);
@@ -154,10 +156,14 @@ const splitIngredientText = (e, input) => {
     const second = input.value.slice(input.selectionStart).trim();
 
     input.value = first;
+    input.dispatchEvent(new Event('input'));
 
-    const ingredient = addEmptyIngredientInput(input.closest(".ingredient-input-container"));
-    ingredient.value = second;
-    ingredient.element.querySelector("input").value = second;
+    if (second != "") {
+        const ingredient = addEmptyIngredientInput(input.closest(".ingredient-input-container"));
+        ingredient.value = second;
+        ingredient.element.querySelector("input").value = second;
+    }
+    hideContextMenu();
 }
 
 const setRecipeImages = (page) => {
