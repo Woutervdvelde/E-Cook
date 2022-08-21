@@ -120,14 +120,17 @@ const getIngredientInput = (ingredient) => {
 }
 
 const addEmptyIngredientInput = (afterElement) => {
-    recipe.ingredients.text.push({ value: "" });
-    const ingredient = recipe.ingredients.text.last();
+    const elem = document.querySelector(".ingredients-container");
+    const ingredient = { value: "" };
     const input = getIngredientInput(ingredient);
 
     if (afterElement) {
+        const index = recipe.ingredients.text.indexOf(getIngredientByElement(afterElement));
+        recipe.ingredients.text.splice(index + 1, 0, ingredient);
         afterElement.after(input);
         ingredient.element = afterElement.nextElementSibling;
     } else {
+        recipe.ingredients.text.push(ingredient);
         elem.appendChild(input);
         ingredient.element = elem.children.last();
     }
