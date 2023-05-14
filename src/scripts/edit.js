@@ -18,6 +18,7 @@ const getCurrentInput = () => document.getElementById("current_input");
 const pages = ['title', 'description', 'ingredients', 'steps'];
 let currentPage = pages[0];
 let showWholeRecipe = false;
+let currentTemplateInput = null;
 
 const textAreaResize = () => {
     this.style.height = "auto";
@@ -96,8 +97,12 @@ const setNavigatedTemplate = (page) => {
 const loadTemplateData = (page) => {
     switch (page) {
         case "ingredients":
+            currentTemplateInput = document.getElementById("edit_template_ingredient_input");
             loadIngredients();
             enableContextMenu();
+            break;
+        case "steps":
+            currentTemplateInput = document.getElementById("edit_template_step_input");
             break;
         default:
             const textarea = getCurrentInput();
@@ -107,15 +112,14 @@ const loadTemplateData = (page) => {
     }
 }
 
-const getIngredientInput = (ingredient) => {
-    const template = document.getElementById("edit_template_ingredient_input");
-    const elem = template.content.cloneNode(true);
+const getIngredientInput = (entity) => {
+    const elem = currentTemplateInput.content.cloneNode(true);
 
     const input = elem.querySelector("input");
-    input.oninput = (e) => { onInputChange(e, ingredient) };
-    input.value = ingredient.value;
+    input.oninput = (e) => { onInputChange(e, entity) };
+    input.value = entity.value;
 
-    elem.querySelector(".ingredient-delete-container").onclick = (e) => { deleteIngredient(e, ingredient) };
+    elem.querySelector(".input-delete-container").onclick = (e) => { deleteEntity(e, entity) };
     return elem;
 }
 
@@ -151,9 +155,9 @@ const loadIngredients = () => {
     document.querySelector(".add-ingredient-container").onclick = () => addEmptyIngredientInput();
 }
 
-const deleteIngredient = (e, ingredient) => {
-    ingredient.element.parentElement.removeChild(ingredient.element);
-    recipe.ingredients.text.splice(recipe.ingredients.text.indexOf(ingredient), 1);
+const deleteEntity = (e, entity) => {
+    entity.element.parentElement.removeChild(entity.element);
+    recipe[currentPage].text.splice(recipe[currentPage].text.indexOf(entity), 1);
 }
 
 const splitIngredientText = (e, input) => {

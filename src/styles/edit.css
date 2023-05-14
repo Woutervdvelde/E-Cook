@@ -175,7 +175,7 @@
     color: var(--color-blue-400);
 }
 
-.ingredient-delete-container {
+.input-delete-container {
     position: absolute;
     bottom: .25em;
     right: 0;
@@ -192,11 +192,11 @@
     transition: all .25s ease-out;
 }
 
-.ingredient-delete-container:hover {
+.input-delete-container:hover {
     opacity: 1;
     background-color: var(--color-red-300);
 }
 
-.ingredient-delete-container:active {
+.input-delete-container:active {
     background-color: var(--color-red-400);
 }
