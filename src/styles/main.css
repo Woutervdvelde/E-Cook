@@ -46,10 +46,18 @@
     box-sizing: border-box;
 }
 
+*::selection {
+    background-color: var(--color-blue-100);
+}
+
 body {
     background-color: var(--color-light-400);
     font-family: 'Rubik', sans-serif;
     transition: opacity .25s ease-in-out;
+}
+
+textarea, input {
+    caret-color: var(--color-blue-400);
 }
 
 #source_image {

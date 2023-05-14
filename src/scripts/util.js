@@ -92,3 +92,14 @@ class Enum {
         for (let key of Object.keys(this)) yield key;
     }
 }
+
+/**
+ * Method that returns the last element of the array.
+ * @returns Last element in array
+ */
+Array.prototype.last = function() {
+    return this[this.length - 1];
+}
+HTMLCollection.prototype.last = function() {
+    return this[this.length - 1];
+}

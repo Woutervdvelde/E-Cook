@@ -43,6 +43,14 @@
         </div>
     </div>
 
+    <div id="context_menu">
+        <div id="context_menu_split" class="context-menu-item">
+            <div class="pointer"></div>
+            <span class="material-symbols-rounded">cut</span>
+            <p>split</p>
+        </div>
+    </div>
+
     <template id="edit_template_title">
         <p>Recipe title</p>
         <textarea></textarea>
@@ -53,7 +61,20 @@
     </template>
     <template id="edit_template_ingredients">
         <p>Ingredients</p>
-        <textarea class="medium"></textarea>
+        <div class="ingredients-container">
+            <input></input>
+        </div>
+        <div class="add-ingredient-container">
+            <span class="material-symbols-rounded">add_circle</span> add ingredient
+        </div>
+    </template>
+    <template id="edit_template_ingredient_input">
+        <div class="ingredient-input-container">
+            <input />
+            <div class="ingredient-delete-container">
+                <span class="material-symbols-rounded">delete</span>
+            </div>
+        </div>
     </template>
     <template id="edit_template_steps">
         <p>Steps</p>
@@ -61,6 +82,7 @@
 
     <script src="scripts/util.js"></script>
     <script src="scripts/edit.js"></script>
+    <script src="scripts/editMenu.js"></script>
 </body>
 
 </html>

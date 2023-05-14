@@ -2,9 +2,10 @@ const revertible = JSON.parse(localStorage.getItem("conversion_data"));
 const recipe = {
     title: { text: "", images: [] },
     description: { text: "", images: [] },
-    ingredients: { text: "", images: [] },
-    steps: { text: "", images: [] }
+    ingredients: { text: [], images: [] },
+    steps: { text: [], images: [] }
 }
+const getIngredientByElement = (element) => recipe.ingredients.text.find(i => i.element == element);
 
 const editContainer = document.getElementById("edit_container");
 const imageContainer = document.getElementById("recipe_image_container");
@@ -23,7 +24,7 @@ const textAreaResize = () => {
     this.style.height = `${this.scrollHeight}px`;
 }
 
-const editNavigate = (page) => {
+const editNavigate = async (page) => {
     if (page == 'next')
         page = pages[pages.indexOf(currentPage) + 1];
 
@@ -31,6 +32,9 @@ const editNavigate = (page) => {
         page = pages[pages.indexOf(currentPage) - 1];
 
     if (page) {
+        editContainer.style.opacity = 0;
+        await timeout(200);
+
         currentPage = page;
         setNavigationActive(page);
         setNavigatedTemplate(page);
@@ -38,6 +42,8 @@ const editNavigate = (page) => {
 
         if (showWholeRecipe) setWholeRecipeImage();
         else setRecipeImages(page);
+
+        editContainer.style.opacity = 1;
     }
     checkButtonToggle();
 }
@@ -77,17 +83,90 @@ const setNavigatedTemplate = (page) => {
 
     editContainer.innerHTML = '';
     editContainer.appendChild(template.content.cloneNode(true));
+
     const textarea = editContainer.querySelector('textarea');
-    textarea.id = "current_input";
-    textarea.rows = 1;
-    textarea.setAttribute('oninput', 'this.style.height = "";this.style.height = this.scrollHeight + "px"');
-    textarea.oninput = onTextareaChange;
+    if (textarea) {
+        textarea.id = "current_input";
+        textarea.rows = 1;
+        textarea.setAttribute('oninput', 'this.style.height = "";this.style.height = this.scrollHeight + "px"');
+        textarea.oninput = onTextareaChange;
+    }
 }
 
 const loadTemplateData = (page) => {
-    const textarea = getCurrentInput();
-    textarea.value = recipe[page].text;
-    textarea.dispatchEvent(new Event('input'));
+    switch (page) {
+        case "ingredients":
+            loadIngredients();
+            enableContextMenu();
+            break;
+        default:
+            const textarea = getCurrentInput();
+            textarea.value = recipe[page].text;
+            textarea.dispatchEvent(new Event('input'));
+            break;
+    }
+}
+
+const getIngredientInput = (ingredient) => {
+    const template = document.getElementById("edit_template_ingredient_input");
+    const elem = template.content.cloneNode(true);
+
+    const input = elem.querySelector("input");
+    input.oninput = (e) => { onInputChange(e, ingredient) };
+    input.value = ingredient.value;
+
+    elem.querySelector(".ingredient-delete-container").onclick = (e) => { deleteIngredient(e, ingredient) };
+    return elem;
+}
+
+const addEmptyIngredientInput = (afterElement) => {
+    const elem = document.querySelector(".ingredients-container");
+    const ingredient = { value: "" };
+    const input = getIngredientInput(ingredient);
+
+    if (afterElement) {
+        const index = recipe.ingredients.text.indexOf(getIngredientByElement(afterElement));
+        recipe.ingredients.text.splice(index + 1, 0, ingredient);
+        afterElement.after(input);
+        ingredient.element = afterElement.nextElementSibling;
+    } else {
+        recipe.ingredients.text.push(ingredient);
+        elem.appendChild(input);
+        ingredient.element = elem.children.last();
+    }
+    return ingredient;
+}
+
+const loadIngredients = () => {
+    const elem = editContainer.querySelector(".ingredients-container");
+    elem.innerHTML = "";
+
+    recipe.ingredients.text.forEach((ingredient) => {
+        elem.appendChild(getIngredientInput(ingredient));
+        ingredient.element = elem.children[elem.childElementCount - 1];
+    });
+
+    document.querySelector(".add-ingredient-container").onclick = () => addEmptyIngredientInput();
+}
+
+const deleteIngredient = (e, ingredient) => {
+    ingredient.element.parentElement.removeChild(ingredient.element);
+    recipe.ingredients.text.splice(recipe.ingredients.text.indexOf(ingredient), 1);
+}
+
+const splitIngredientText = (e, input) => {
+    const first = input.value.slice(0, input.selectionStart).trim();
+    const second = input.value.slice(input.selectionStart).trim();
+
+    input.value = first;
+    input.dispatchEvent(new Event('input'));
+
+    if (second != "") {
+        const ingredient = addEmptyIngredientInput(input.closest(".ingredient-input-container"));
+        ingredient.value = second;
+        ingredient.element.querySelector("input").value = second;
+    }
+    hideContextMenu();
 }
 
 const setRecipeImages = (page) => {
@@ -117,6 +196,10 @@ const onTextareaChange = (e) => {
     recipe[currentPage].text = elem.value;
 }
 
+const onInputChange = (e, ingredient) => {
+    ingredient.value = e.target.value;
+}
+
 const getHistoryItemsByType = (revertible, type) => revertible.history.filter(h => h.type.name == type);
 
 const parseData = (revertible) => {
@@ -127,8 +210,8 @@ const parseData = (revertible) => {
 
     recipe.title.text = h_titles.map(item => item.recognition.text.trim()).join('\n');
     recipe.description.text = h_descriptions.map(item => item.recognition.text.trim()).join('\n');
-    recipe.ingredients.text = h_ingredients.map(item => item.recognition.text.trim()).join('\n');
-    recipe.steps.text = h_steps.map(item => item.recognition.text.trim()).join('\n');
+    recipe.ingredients.text = h_ingredients.map(item => item.recognition.paragraphs).flat().map(t => { return { value: t.trim() } });
+    recipe.steps.text = h_steps.map(item => item.recognition.paragraphs).flat().map(t => t.trim());
 
     recipe.title.images = h_titles.map(item => item.croppedImage);
     recipe.description.images = h_descriptions.map(item => item.croppedImage);
@@ -148,3 +231,4 @@ imageToggleButton.onclick = () => {
     else
         setRecipeImages(currentPage);
 }
+
