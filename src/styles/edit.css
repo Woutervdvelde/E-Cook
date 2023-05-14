@@ -137,11 +137,10 @@
 
 .edit-container input {
     width: 100%;
-    margin: .25em 0;
     padding: 1em;
     background-color: rgba(0, 0, 0, .1);
     border: none;
-    border-radius: 5px;
+    border-radius: 5px 0 0 5px;
     font-family: inherit;
     font-size: 1.1em;
     caret-color: var(--color-blue-400);
@@ -157,6 +156,8 @@
 
 .ingredient-input-container {
     position: relative;
+    display: flex;
+    margin: .5em 0;
 }
 
 .add-ingredient-container {
@@ -176,15 +177,12 @@
 }
 
 .input-delete-container {
-    position: absolute;
-    bottom: .25em;
-    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1em;
     height: calc(100% - .5em);
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0;
     background-color: var(--color-red-200);
     cursor: pointer;
     user-select: none;
