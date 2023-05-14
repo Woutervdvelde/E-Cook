@@ -134,6 +134,8 @@ const addEmptyIngredientInput = (afterElement) => {
         elem.appendChild(input);
         ingredient.element = elem.children.last();
     }
+    enableContextMenuOnElement(ingredient.element);
+
     return ingredient;
 }
 
@@ -155,8 +157,16 @@ const deleteIngredient = (e, ingredient) => {
 }
 
 const splitIngredientText = (e, input) => {
-    const first = input.value.slice(0, input.selectionStart).trim();
-    const second = input.value.slice(input.selectionStart).trim();
+    if (!input.value || input.value.length == 0) return;
+
+    let first, second;
+    if (input.selectionStart == input.selectionEnd) {
+        first = input.value.slice(0, input.selectionStart).trim();
+        second = input.value.slice(input.selectionStart).trim();
+    } else {
+        first = input.value.substring(0, input.selectionStart) + input.value.substring(input.selectionEnd).trim();
+        second = input.value.slice(input.selectionStart, input.selectionEnd).trim();
+    }
 
     input.value = first;
     input.dispatchEvent(new Event('input'));
