@@ -160,7 +160,7 @@
     margin: .5em 0;
 }
 
-.add-ingredient-container {
+.add-input-container {
     display: flex;
     align-items: center;
     margin: .25em 0;
@@ -168,11 +168,11 @@
     transition: all .2s ease-out;
 }
 
-.add-ingredient-container span {
+.add-input-container span {
     margin-right: .2em;
 }
 
-.add-ingredient-container:hover {
+.add-input-container:hover {
     color: var(--color-blue-400);
 }
 

@@ -5,7 +5,7 @@ const recipe = {
     ingredients: { text: [], images: [] },
     steps: { text: [], images: [] }
 }
-const getIngredientByElement = (element) => recipe.ingredients.text.find(i => i.element == element);
+const getEntityByElement = (element) => recipe[currentPage].text.find(i => i.element == element);
 
 const editContainer = document.getElementById("edit_container");
 const imageContainer = document.getElementById("recipe_image_container");
@@ -18,6 +18,7 @@ const getCurrentInput = () => document.getElementById("current_input");
 const pages = ['title', 'description', 'ingredients', 'steps'];
 let currentPage = pages[0];
 let showWholeRecipe = false;
+let currentContainer = null;
 let currentTemplateInput = null;
 
 const textAreaResize = () => {
@@ -102,6 +103,7 @@ const loadTemplateData = (page) => {
             enableContextMenu();
             break;
         case "steps":
+            currentContainer = document.getElementById("edit_template_step_container");
             currentTemplateInput = document.getElementById("edit_template_step_input");
             break;
         default:
@@ -123,28 +125,28 @@ const getIngredientInput = (entity) => {
     return elem;
 }
 
-const addEmptyIngredientInput = (afterElement) => {
-    const elem = document.querySelector(".ingredients-container");
-    const ingredient = { value: "" };
-    const input = getIngredientInput(ingredient);
+const addEmptyInput = (afterElement) => {
+    const elem = document.querySelector(".inputs-container");
+    const entity = { value: "" };
+    const input = getIngredientInput(entity);
 
     if (afterElement) {
-        const index = recipe.ingredients.text.indexOf(getIngredientByElement(afterElement));
-        recipe.ingredients.text.splice(index + 1, 0, ingredient);
+        const index = recipe[currentPage].text.indexOf(getEntityByElement(afterElement));
+        recipe[currentPage].text.splice(index + 1, 0, entity);
         afterElement.after(input);
-        ingredient.element = afterElement.nextElementSibling;
+        entity.element = afterElement.nextElementSibling;
     } else {
-        recipe.ingredients.text.push(ingredient);
+        recipe[currentPage].text.push(entity);
         elem.appendChild(input);
-        ingredient.element = elem.children.last();
+        entity.element = elem.children.last();
     }
-    enableContextMenuOnElement(ingredient.element);
+    enableContextMenuOnElement(entity.element);
 
-    return ingredient;
+    return entity;
 }
 
 const loadIngredients = () => {
-    const elem = editContainer.querySelector(".ingredients-container");
+    const elem = editContainer.querySelector(".inputs-container");
     elem.innerHTML = "";
 
     recipe.ingredients.text.forEach((ingredient) => {
@@ -152,7 +154,7 @@ const loadIngredients = () => {
         ingredient.element = elem.children[elem.childElementCount - 1];
     });
 
-    document.querySelector(".add-ingredient-container").onclick = () => addEmptyIngredientInput();
+    document.querySelector(".add-input-container").onclick = () => addEmptyInput();
 }
 
 const deleteEntity = (e, entity) => {
@@ -176,7 +178,7 @@ const splitIngredientText = (e, input) => {
     input.dispatchEvent(new Event('input'));
 
     if (second != "") {
-        const ingredient = addEmptyIngredientInput(input.closest(".ingredient-input-container"));
+        const ingredient = addEmptyInput(input.closest(".ingredient-input-container"));
         ingredient.value = second;
         ingredient.element.querySelector("input").value = second;
     }
