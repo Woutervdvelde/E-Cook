@@ -140,7 +140,7 @@ const addEmptyInput = (afterElement) => {
         elem.appendChild(input);
         entity.element = elem.children.last();
     }
-    enableContextMenuOnElement(entity.element);
+    enableContextMenuOnElement(entity.element.querySelector("input"));
 
     return entity;
 }
